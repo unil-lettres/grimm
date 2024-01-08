@@ -1,0 +1,8 @@
+{
+  "name" : "grimm",
+  "version" : "1.0.0",
+  "description" : "Grimm’s Fairy Tales",
+  "dependencies" : {
+    "@teipublisher/pb-components" : "latest"
+  }
+}
