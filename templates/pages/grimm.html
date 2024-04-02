@@ -92,20 +92,11 @@
                                 <pb-grid-action grid="#grid" slot="toolbar" action="remove">
                                     <paper-icon-button icon="icons:close"/>
                                 </pb-grid-action>
-                                <template title="Translation">
-                                    <pb-view src="document1" map="vg-translation" xpath="//div[@type='original']" subscribe="transcription"/>
-                                </template>
-                                <template title="Facsimile">
-                                    <pb-facsimile subscribe="transcription" type="image">
-                                    </pb-facsimile>
-                                    <div class="facscaption">Images hosted by <a href="http://vangoghletters.org">Van
-                                            Gogh Museum, Amsterdam, Huygens ING, The Hague</a></div>
-                                </template>
-                                <template title="Notes">
-                                    <pb-view src="document1" xpath="//div[@type='original']" subscribe="transcription">
-                                        <pb-param name="view" value="notes"/>
-                                    </pb-view>
-                                </template>
+                                <template title="Original text">
+                                <pb-view src="document1" class="transcription" subscribe="transcription" emit="transcription">
+                                    <pb-param name="view" value="normalized"/>
+                                </pb-view>
+                            </template>
                             </pb-panel>
                         </template>
                         <!-- Metadata and transcription are always shown -->
@@ -115,12 +106,9 @@
                         <!-- For the transcription, users can choose between diplomatic and normalized view -->
                         <pb-panel emit="transcription">
                             <template title="Original text">
-                                <pb-view src="document1" class=".transcription" xpath="//div[@type='original']" subscribe="transcription" emit="transcription">
+                                <pb-view src="document1" class="transcription" subscribe="transcription" emit="transcription">
                                     <pb-param name="view" value="normalized"/>
                                 </pb-view>
-                            </template>
-                            <template title="Original text + line endings">
-                                <pb-view src="document1" class=".transcription" xpath="//div[@type='original']" subscribe="transcription" emit="transcription"/>
                             </template>
                         </pb-panel>
                     </pb-grid>
