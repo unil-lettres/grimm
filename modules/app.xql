@@ -10,6 +10,8 @@ module namespace app="teipublisher.com/app";
 
 import module namespace templates="http://exist-db.org/xquery/html-templating";
 import module namespace config="http://www.tei-c.org/tei-simple/config" at "config.xqm";
+import module namespace pm-config="http://www.tei-c.org/tei-simple/pm-config" at "pm-config.xql";
+
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
@@ -17,4 +19,14 @@ declare
     %templates:wrap
 function app:foo($node as node(), $model as map(*)) {
     <p>Dummy templating function.</p>
+};
+
+declare function app:list-texts($node as node(), $model as map(*), $root as xs:string?) {
+    for $hits in $model?all
+    group by $tail := ft:field($hits, "tail")
+    let $baseText := collection($config:data-root)/id($tail)
+    return
+        <div class="tail">
+            {$pm-config:web-transform($baseText//tei:titleStmt, map { "root": $baseText, "doc": config:get-identifier($baseText), "tail": $tail, "view": "tail" }, $config:default-odd)}
+        </div>
 };

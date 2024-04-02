@@ -307,7 +307,26 @@
                     }
                 }
             }
-        }
+        },
+		"/api/grimm-collection": {
+			"get": {
+				"summary": "Get formatted overview of documents in the collection",
+				"tags": ["collection"],
+				"operationId": "api:list",
+				"responses": {
+					"200": {
+						"description": "Returns HTML describing the collection",
+						"content": {
+							"text/html": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				}
+			}
+		}
     },
     "security": [
         {
