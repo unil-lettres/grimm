@@ -34,7 +34,7 @@ declare namespace tei="http://www.tei-c.org/ns/1.0";
  : In this case, change $config:webcomponents-cdn to point to http://localhost:port 
  : (default: 8000, but check where your server is running).
  :)
-declare variable $config:webcomponents :="latest";
+declare variable $config:webcomponents :="2.19.0";
 
 (:~
  : CDN URL to use for loading webcomponents. Could be changed if you created your
@@ -43,6 +43,9 @@ declare variable $config:webcomponents :="latest";
 declare variable $config:webcomponents-cdn := "https://cdn.jsdelivr.net/npm/@teipublisher/pb-components";
 (: declare variable $config:webcomponents-cdn := "https://cdn.tei-publisher.com/"; :)
 (: declare variable $config:webcomponents-cdn := "http://localhost:8000"; :)
+
+(: Version of fore to use for annotation editor :)
+declare variable $config:fore :="1.9.0";
 
 (:~~
  : A list of regular expressions to check which external hosts are
@@ -325,27 +328,57 @@ declare variable $config:data-root := "/db/apps/grimm-data/";
  : The root of the collection hierarchy whose files should be displayed
  : on the entry page. Can be different from $config:data-root.
  :)
-declare variable $config:data-default := $config:data-root || 'data';
+declare variable $config:data-default := $config:data-root;
 
 (:~
  : A sequence of root elements which should be excluded from the list of
  : documents displayed in the browsing view.
  :)
 declare variable $config:data-exclude :=
-    doc($config:data-root || "/taxonomy.xml")//tei:text
+    doc($config:data-root || "/taxonomy.xml")//tei:text,
+    collection($config:register-root)//tei:text
 ;
+
+(:~
+ : The root of the collection hierarchy containing registers data.
+ :)
+declare variable $config:register-root := $config:data-root || "/registers";
+declare variable $config:register-forms := $config:data-root || "/registers/templates";
+
+declare variable $config:register-map := map {
+    "person": map {
+        "id": "pb-persons",
+        "default": "person-default",
+        "prefix": "person-"
+    },
+    "place": map {
+        "id": "pb-places",
+        "default": "place-default",
+        "prefix": "place-"
+    },
+    "organization": map {
+        "id": "pb-organization",
+        "default": "organization-default",
+        "prefix": "org-"
+    },
+    "term": map {
+        "id": "pb-keywords",
+        "default": "term-default",
+        "prefix": "category-"
+    }
+};
 
 (:~
  : The main ODD to be used by default
  :)
-declare variable $config:default-odd :="teipublisher.odd";
+declare variable $config:default-odd :="grimm.odd";
 
 (:~
  : Complete list of ODD files used by the app. If you add another ODD to this list,
  : make sure to run modules/generate-pm-config.xql to update the main configuration
  : module for transformations (modules/pm-config.xql).
  :)
-declare variable $config:odd-available :=("teipublisher.odd", "docx.odd", "grim.odd");
+declare variable $config:odd-available :=("grimm.odd", "teipublisher.odd");
 
 (:~
  : List of ODD files which are used internally only, i.e. not for displaying information

@@ -26,12 +26,12 @@
             </sourceDesc>
         </fileDesc>
         <revisionDesc>
-            <change when="2024-01-08Z">Initial version</change>
+            <change when="2024-04-02+02:00">Initial version</change>
         </revisionDesc>
     </teiHeader>
     <text>
         <body>
-            <schemaSpec start="TEI teiCorpus" source="teipublisher.odd" ident="grim"> </schemaSpec>
+            <schemaSpec start="TEI teiCorpus" source="teipublisher.odd" ident="grimm"> </schemaSpec>
         </body>
     </text>
 </TEI>

@@ -1,6 +1,6 @@
 <html>
     <head>
-        <base href="${base}" data-template="pages:parse-params"/>
+        <base href="${app}/doc/documentation.xml" data-template="pages:parse-params"/>
         <meta charset="utf-8"/>
         <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes"/>
         <link rel="shortcut icon" type="image/x-icon" href="resources/images/favicon.ico"/>
@@ -31,7 +31,7 @@
                                 <paper-icon-button icon="icons:folder-open"/>
                             </a>
                             <div id="toolbar-start" style="display: none"/>
-                            <pb-restricted login="login">
+                            <pb-restricted>
                                 <pb-ajax subscribe="transcription" emit="transcription" url="api/odd" method="post" data-template="pages:parse-params" event="pb-refresh" title="Recompile ODD" data-i18n="[title]menu.admin.recompile">
                                     <h3 slot="title"><pb-i18n key="menu.admin.recompile"/></h3>
                                     <paper-icon-button icon="icons:refresh"/>

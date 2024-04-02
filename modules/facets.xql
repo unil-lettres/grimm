@@ -23,12 +23,12 @@ import module namespace config="http://www.tei-c.org/tei-simple/config" at "conf
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
-declare function facets:sort($config as map(*), $facets as map(*)?) {
+declare function facets:sort($config as map(*), $lang as xs:string?, $facets as map(*)?) {
     array {
         if (exists($facets)) then
             for $key in map:keys($facets)
             let $value := map:get($facets, $key)
-            let $sortKey := if (exists($config?output)) then $config?output($key) else $key
+            let $sortKey := facets:translate($config, $lang, $key)
             order by $sortKey ascending
             return
                 map { $key: $value }
@@ -39,6 +39,7 @@ declare function facets:sort($config as map(*), $facets as map(*)?) {
 
 declare function facets:print-table($config as map(*), $nodes as element()+, $values as xs:string*, $params as xs:string*) {
     let $all := exists($config?max) and facets:get-parameter("all-" || $config?dimension)
+    let $lang := tokenize(facets:get-parameter("language"), '-')[1]
     let $count := if ($all) then 50 else $config?max
     let $facets :=
         if (exists($values)) then
@@ -49,13 +50,9 @@ declare function facets:print-table($config as map(*), $nodes as element()+, $va
         if (map:size($facets) > 0) then
             <table>
             {
-                array:for-each(facets:sort($config, $facets), function($entry) {
+                array:for-each(facets:sort($config, $lang, $facets), function($entry) {
                     map:for-each($entry, function($label, $freq) {
-                        let $content :=
-                            if (exists($config?output)) then
-                                $config?output($label)
-                            else
-                                $label
+                        let $content := facets:translate($config, $lang, $label)
                         return
                         <tr>
                             <td>
@@ -89,6 +86,7 @@ declare function facets:print-table($config as map(*), $nodes as element()+, $va
 
 declare function facets:display($config as map(*), $nodes as element()+) {
     let $params := facets:get-parameter("facet-" || $config?dimension)
+    let $lang := tokenize(facets:get-parameter("language"), '-')[1]
     let $table := facets:print-table($config, $nodes, (), $params)
 
     let $maxcount := 50
@@ -128,11 +126,7 @@ declare function facets:display($config as map(*), $nodes as element()+) {
                         <select multiple="">
                         {
                             for $param in facets:get-parameter("facet-" || $config?dimension)
-                            let $label :=
-                                if (map:contains($config, "output")) then
-                                    $config?output($param)
-                                else
-                                    $param
+                            let $label := facets:translate($config, $lang, $param)
                             return
                                 <option value="{$param}" data-i18n="{$label}" selected="">{$label}</option>
                         }
@@ -157,4 +151,16 @@ declare function facets:get-parameter($name as xs:string) {
                     $fromSession?($name)
                 else
                     ()
+};
+
+declare function facets:translate($config as map(*)?, $language as xs:string?, $label as xs:string) {
+    if (exists($config) and map:contains($config, "output")) then
+        let $fn := $config?output
+        return
+            if (function-arity($fn) = 2) then
+                $fn($label, $language)
+            else
+                $fn($label)
+    else
+        $label
 };
