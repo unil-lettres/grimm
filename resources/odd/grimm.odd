@@ -1,4 +1,5 @@
-<?xml-model href="teipublisher_odds.xsd"?><TEI xmlns="http://www.tei-c.org/ns/1.0" xml:lang="en">
+<?xml-model href="teipublisher_odds.xsd"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xmlns:pb="http://teipublisher.com/1.0" xml:lang="en">
     <teiHeader>
         <fileDesc>
             <titleStmt>
@@ -8,7 +9,8 @@
                 <publisher>eXistSolutions GmbH</publisher>
                 <availability>
                     <licence target="https://www.gnu.org/licenses/gpl-3.0.en.html">Distributed under GNU General Public License</licence>
-                    <p>Copyright 2017 <ref target="http://existsolutions.com">eXistSolutions GmbH</ref></p>
+                    <p>Copyright 2017 <ref target="http://existsolutions.com">eXistSolutions GmbH</ref>
+                    </p>
                     <p>This program is free software: you can redistribute it and/or modify
                         it under the terms of the GNU General Public License as published by
                         the Free Software Foundation, either version 3 of the License, or
@@ -25,13 +27,111 @@
                 <p>born digital</p>
             </sourceDesc>
         </fileDesc>
+        <encodingDesc>
+            <tagsDecl/>
+        </encodingDesc>
         <revisionDesc>
             <change when="2024-04-02+02:00">Initial version</change>
         </revisionDesc>
     </teiHeader>
     <text>
         <body>
-            <schemaSpec start="TEI teiCorpus" source="teipublisher.odd" ident="grimm"> </schemaSpec>
+            <schemaSpec start="TEI teiCorpus" ident="grimm" source="teipublisher.odd"> <elementSpec ident="title" mode="change">
+                    <model predicate="$parameters?view='tail'" behaviour="heading">
+            <param name="level" value="5"/>
+            <param name="content" value=". || ' (' || ext-html:available-languages($parameters?tail) || ')'"/>
+        </model>
+                    <model predicate="$parameters?header='short'" behaviour="heading">
+            <param name="level" value="5"/>
+        </model>
+                    <modelSequence predicate="parent::titleStmt/parent::fileDesc">
+            <model predicate="preceding-sibling::title" behaviour="text">
+                <param name="content" value="' — '"/>
+            </model>
+            <model behaviour="inline"/>
+        </modelSequence>
+                    <model predicate="not(@level) and parent::bibl" behaviour="inline"/>
+                    <modelSequence predicate="@level='m' or not(@level)">
+            <model behaviour="inline">
+                <outputRendition xml:space="preserve">
+                font-style: italic;
+                </outputRendition>
+            </model>
+            <model predicate="ancestor::biblFull" behaviour="text">
+                <param name="content" value="', '"/>
+            </model>
+        </modelSequence>
+                    <modelSequence predicate="@level='s' or @level='j'">
+            <model behaviour="inline">
+                <outputRendition xml:space="preserve">
+                font-style: italic;
+                </outputRendition>
+            </model>
+            <model predicate="following-sibling::* and     (  ancestor::biblFull)" behaviour="text">
+                <param name="content" value="', '"/>
+            </model>
+        </modelSequence>
+                    <modelSequence predicate="@level='u' or @level='a'">
+            <model behaviour="inline">
+                <outputRendition xml:space="preserve">
+                font-style: italic;
+                </outputRendition>
+            </model>
+            <model predicate="following-sibling::* and     (    ancestor::biblFull)" behaviour="text">
+                <param name="content" value="'. '"/>
+            </model>
+        </modelSequence>
+                    <model behaviour="inline">
+            <outputRendition xml:space="preserve">
+            font-style: italic;
+            </outputRendition>
+        </model>
+                </elementSpec>
+                <elementSpec ident="titleStmt" mode="change">
+                    <modelSequence predicate="$parameters?view='tail'">
+            <model behaviour="link">
+                <param name="content" value="title[1]"/>
+                <param name="uri" value="$parameters?doc"/>
+            </model>
+        </modelSequence>
+                    <model output="latex" behaviour="meta">
+            <param name="content" value="."/>
+        </model>
+                    <model output="fo" behaviour="heading"/>
+                    <model predicate="$parameters?mode='title'" behaviour="heading">
+            <param name="content" value="title[not(@type)]"/>
+            <param name="level" value="5"/>
+        </model>
+                    <modelSequence output="web" predicate="$parameters?header='short'">
+            <model behaviour="link">
+                <param name="content" value="(../descendant::sourceDesc/descendant::title[@type eq 'alt'], title[1])"/>
+                <param name="uri" value="$parameters?doc"/>
+            </model>
+        </modelSequence>
+                    <model output="web" behaviour="block"/>
+                </elementSpec>
+                <elementSpec ident="fileDesc" mode="change">
+                    <modelSequence predicate="$parameters?header='short'">
+            <model behaviour="block" cssClass="header-short">
+                <param name="content" value="titleStmt"/>
+            </model>
+            <model behaviour="block" cssClass="header-short">
+                <param name="content" value="sourceDesc"/>
+            </model>
+            <model behaviour="block" cssClass="header-short">
+                <param name="content" value="../profileDesc//origDate/string()"/>
+            </model>
+        </modelSequence>
+                    <model behaviour="title">
+            <param name="content" value="titleStmt"/>
+        </model>
+                </elementSpec>
+                <elementSpec ident="sourceDesc" mode="add">
+                    <model predicate="$parameters?header='short' and (string-length(descendant::editor[@role eq 'translator']/text()[1]) gt 1)" behaviour="inline">
+            <param name="content" value="descendant::editor[@role eq 'translator']/text()[1]/normalize-space(.)"/>
+        </model>
+                </elementSpec>
+            </schemaSpec>
         </body>
     </text>
 </TEI>
