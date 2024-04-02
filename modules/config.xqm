@@ -122,12 +122,6 @@ declare variable $config:pagination-fill := 5;
  :)
 declare variable $config:facets := [
     map {
-        "dimension": "genre",
-        "heading": "facets.genre",
-        "max": 5,
-        "hierarchical": true()
-    },
-    map {
         "dimension": "language",
         "heading": "facets.language",
         "max": 5,
@@ -141,6 +135,20 @@ declare variable $config:facets := [
                 case "en" return "English"
                 default return $label
         }
+    },
+    map {
+        "dimension": "translator",
+        "heading": "facets.translator",
+        "max": 5,
+        "hierarchical": false()
+    },
+    map {
+        "dimension": "century",
+        "heading": "facets.century",
+        "max": 5,
+        "hierarchical": false(),
+        "output": function($label) {
+           $label || 'th'}
     }
 ];
 
@@ -328,7 +336,7 @@ declare variable $config:data-root := "/db/apps/grimm-data/";
  : The root of the collection hierarchy whose files should be displayed
  : on the entry page. Can be different from $config:data-root.
  :)
-declare variable $config:data-default := $config:data-root;
+declare variable $config:data-default := $config:data-root || '/data';
 
 (:~
  : A sequence of root elements which should be excluded from the list of
