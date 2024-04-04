@@ -5,9 +5,16 @@
         <paper-icon-button icon="icons:folder-open"/>
     </a>
     <div id="toolbar-start" style="display: none"/>
+    <pb-grid-action action="add" class="grid-add" grid="#grid">
+        <paper-button>
+            <iron-icon icon="icons:view-carousel"/> <pb-i18n key="document.add-panel">Add</pb-i18n>
+        </paper-button>
+    </pb-grid-action>
     <pb-restricted>
         <pb-ajax subscribe="transcription" emit="transcription" url="api/odd" method="post" data-template="pages:parse-params" event="pb-refresh" title="Recompile ODD" data-i18n="[title]menu.admin.recompile">
-            <h3 slot="title"><pb-i18n key="menu.admin.recompile"/></h3>
+            <h3 slot="title">
+                <pb-i18n key="menu.admin.recompile"/>
+            </h3>
             <paper-icon-button icon="icons:refresh"/>
         </pb-ajax>
     </pb-restricted>
