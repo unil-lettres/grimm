@@ -139,6 +139,7 @@ declare variable $config:facets := [
     map {
         "dimension": "translator",
         "heading": "facets.translator",
+        "source": "api/search/facets/translator",
         "max": 5,
         "hierarchical": false()
     },
