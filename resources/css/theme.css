@@ -40,16 +40,16 @@ body {
     --pb-heading-font-weight: 400 !important;
     --pb-heading-line-height: 1.2;
     --pb-breadcrumbs-font-size: 18px;
-    --pb-color-primary: #303030;
-    --pb-color-inverse: #F0F0F0;
-    --pb-color-lighter: #35424b;
-    --pb-color-focus: #f6a623;
+    --pb-color-primary: #0E390E;
+    --pb-color-inverse: #FFDFF6;
+    --pb-color-lighter: #124712;
+    --pb-color-focus: #C79663;
     --pb-annotation-stripes-light: #e0e0ef;
     --pb-annotation-stripes-dark: #50505f;
     --pb-annotation-selection: #f9ea7643;
     --pb-drawer-background-color: var(--pb-color-inverse);
-    --pb-menubar-background-color: #35424b;
-    --pb-menubar-color: var(--pb-color-inverse);
+    --pb-menubar-background-color: #124712;
+    --pb-menubar-color: white;
     --pb-toolbar-background-color: #d1dae0;
     --pb-toolbar-color: var(--pb-color-primary);
     --paper-tooltip-delay-in: 200;
@@ -66,9 +66,9 @@ body {
     --pb-popover-fallback-placement: "top right left";
     --pb-lang-input-color: var(--pb-color-inverse);
     --pb-lang-label-color: var(--pb-color-inverse);
-    --pb-link-color: black;
+    --pb-link-color: #8D5270;
     --pb-link-font-family: var(--pb-serif-font-family);
-    --pb-highlight-color: #F9E976;
+    --pb-highlight-color: #B88B8A;
     --paper-input-container-focus-color: var(--pb-color-focus);
     --pb-view-max-width: 920px;
     font: var(--pb-base-font);
@@ -426,8 +426,4 @@ pb-drawer {
 .facets pb-combo-box input::placeholder {
     font-family: var(--pb-heading-font-family);
     font-weight: var(--pb-heading-font-weight);
-}
-
-.gitlab img {
-    max-height: var(--pb-logo-image-height);
 }
