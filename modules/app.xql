@@ -21,12 +21,14 @@ function app:foo($node as node(), $model as map(*)) {
     <p>Dummy templating function.</p>
 };
 
-declare function app:list-texts($node as node(), $model as map(*), $root as xs:string?) {
+declare
+    %templates:wrap
+function app:list-texts($node as node(), $model as map(*), $root as xs:string?) {
     for $hits in $model?all
-    group by $tail := ft:field($hits, "tail")
-    let $baseText := collection($config:data-root)/id($tail)
+    group by $tale := ft:field($hits, "tale")
+    let $baseText := collection($config:data-root)/id($tale)
     return
-        <div class="tail">
-            {$pm-config:web-transform($baseText//tei:titleStmt, map { "root": $baseText, "doc": config:get-identifier($baseText), "tail": $tail, "view": "tail" }, $config:default-odd)}
+        <div class="tale">
+            {$pm-config:web-transform($baseText//tei:titleStmt, map { "root": $baseText, "doc": config:get-identifier($baseText), "tale": $tale, "view": "tale" }, $config:default-odd)}
         </div>
 };
