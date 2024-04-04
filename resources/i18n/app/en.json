@@ -1,5 +1,6 @@
 {
-    "myapp": {
-        "title": "Foo"
+    "facets": {
+    	"translator": "Translator",
+    	"century": "Century"
     }
 }
