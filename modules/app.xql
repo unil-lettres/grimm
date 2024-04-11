@@ -15,6 +15,8 @@ import module namespace pm-config="http://www.tei-c.org/tei-simple/pm-config" at
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
+declare variable $app:xsl := doc('../resources/scripts/create-segs.xsl');
+
 declare
     %templates:wrap
 function app:foo($node as node(), $model as map(*)) {
@@ -32,3 +34,39 @@ function app:list-texts($node as node(), $model as map(*), $root as xs:string?) 
             {$pm-config:web-transform($baseText//tei:titleStmt, map { "root": $baseText, "doc": config:get-identifier($baseText), "tale": $tale, "view": "tale" }, $config:default-odd)}
         </div>
 };
+    
+declare %templates:wrap function app:create-panels($node as node(), $model as map(*)) {
+    let $id := $model?doc
+    let $selectedDoc := doc($config:data-root || $id)
+    let $documents := collection($config:data-default)//tei:TEI[not(@xml:id/string() = $selectedDoc/tei:TEI/@xml:id/string())][@corresp = $selectedDoc/tei:TEI/@corresp]
+    let $sortedDocuments := for $x in $documents order by $x/descendant::tei:sourceDesc//tei:date return $x
+    return
+        <pb-grid id="grid" panels="[0]">
+            <template>
+                <pb-panel>
+                    <pb-grid-action grid="#grid" slot="toolbar" action="remove">
+                        <paper-icon-button icon="icons:close"/>
+                    </pb-grid-action>
+                    {
+                    for $doc in ($selectedDoc/tei:TEI, $sortedDocuments)
+                    let $type := if ($doc/substring(@corresp, 2) = $doc/@xml:id/string()) then 'Source text' else 'Translation'
+                    let $language := $doc/descendant::tei:language/@ident => upper-case()
+                    let $idno := $doc/descendant::tei:sourceDesc/descendant::tei:date/string()
+                    let $docWithSegs := transform:transform($doc, $app:xsl, ()) 
+                    let $contents := $pm-config:web-transform(
+                            $docWithSegs,
+                            map { 
+                                "root": $docWithSegs//tei:body, 
+                                "view": "single", 
+                                "header": "document", 
+                                "webcomponents": 7},
+                                'grimm.odd')
+                    return
+                        <template title="{$type} ({$language}, {$idno})">
+                            {$contents}
+                        </template>
+                    }
+                </pb-panel>
+            </template>
+        </pb-grid>
+        };
