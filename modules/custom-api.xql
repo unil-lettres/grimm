@@ -21,6 +21,11 @@ import module namespace pm-config="http://www.tei-c.org/tei-simple/pm-config" at
 import module namespace query="http://www.tei-c.org/tei-simple/query" at "lib/query.xql";
 import module namespace nav="http://www.tei-c.org/tei-simple/navigation" at "lib/navigation.xql";
 
+declare namespace tei="http://www.tei-c.org/ns/1.0";
+
+declare default collation "http://exist-db.org/collation?lang=DE";
+
+
 (:~
  : Keep this. This function does the actual lookup in the imported modules.
  :)
