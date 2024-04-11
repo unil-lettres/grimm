@@ -131,6 +131,30 @@
             <param name="content" value="descendant::editor[@role eq 'translator']/text()[1]/normalize-space(.)"/>
         </model>
                 </elementSpec>
+                <elementSpec ident="pb" mode="change">
+                    <model predicate="@facs" behaviour="webcomponent">
+            <desc>Use the url from the facs attribute to link with IIIF image</desc>
+            <param name="name" value="'pb-facs-link'"/>
+            <param name="facs" value="@facs"/>
+            <param name="label" value="@n"/>
+            <param name="emit" value="'transcription'"/>
+        </model>
+                    <model predicate="starts-with(@facs, 'iiif:')" behaviour="webcomponent">
+            <desc>If facs attribute starts with iiif prefix, use the trailing part as a link to the IIIF image</desc>
+            <param name="name" value="'pb-facs-link'"/>
+            <param name="facs" value="replace(@facs, '^iiif:(.*)$', '$1')"/>
+            <param name="label" value="'Page'"/>
+            <param name="emit" value="'transcription'"/>
+        </model>
+                    <model predicate="not(@n)" behaviour="omit" useSourceRendition="true"/>
+                </elementSpec>
+                <elementSpec ident="seg" mode="change">
+                    <model behaviour="pass-through" useSourceRendition="true">
+            <param name="content" value="."/>
+            <param name="key" value="if (@corresp) then @corresp else @xml:id"/>
+            <pb:template xmlns="" xml:space="preserve"><pb-highlight highlight-self="true" key="[[key]]" emit="transcription" subscribe="transcription">[[content]]</pb-highlight></pb:template>
+        </model>
+                </elementSpec>
             </schemaSpec>
         </body>
     </text>
