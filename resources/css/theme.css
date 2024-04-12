@@ -68,7 +68,7 @@ body {
     --pb-lang-label-color: var(--pb-color-inverse);
     --pb-link-color: #8D5270;
     --pb-link-font-family: var(--pb-serif-font-family);
-    --pb-highlight-color: #B88B8A;
+    --pb-highlight-color: #ffdff6;
     --paper-input-container-focus-color: var(--pb-color-focus);
     --pb-view-max-width: 920px;
     font: var(--pb-base-font);
