@@ -34,25 +34,33 @@ function app:list-texts($node as node(), $model as map(*), $root as xs:string?) 
             {$pm-config:web-transform($baseText//tei:titleStmt, map { "root": $baseText, "doc": config:get-identifier($baseText), "tale": $tale, "view": "tale" }, $config:default-odd)}
         </div>
 };
-    
-declare %templates:wrap function app:create-panels($node as node(), $model as map(*)) {
-    let $id := $model?doc
+
+declare function app:get-sorted-documents($id as xs:string) {
     let $selectedDoc := doc($config:data-root || $id)
     let $documents := collection($config:data-default)//tei:TEI[not(@xml:id/string() = $selectedDoc/tei:TEI/@xml:id/string())][@corresp = $selectedDoc/tei:TEI/@corresp]
     let $sortedDocuments := for $x in $documents order by $x/descendant::tei:sourceDesc//tei:date return $x
+    let $docsToDisplay := ($selectedDoc/tei:TEI, $sortedDocuments)
+    return $docsToDisplay
+    };
+    
+declare %templates:wrap function app:create-panels($node as node(), $model as map(*)) {
+    let $id := $model?doc
+    let $docsToDisplay := app:get-sorted-documents($id)
     return
         <pb-grid id="grid" panels="[0]">
             <template>
                 <pb-panel>
+                    <pb-popover trigger="click" persistent="yes" onclick="getMetadata(this)" data-id="{$id}" slot="toolbar"><paper-icon-button icon="icons:info"/></pb-popover>
                     <pb-grid-action grid="#grid" slot="toolbar" action="remove">
                         <paper-icon-button icon="icons:close"/>
                     </pb-grid-action>
                     {
-                    for $doc in ($selectedDoc/tei:TEI, $sortedDocuments)
-                    let $type := if ($doc/substring(@corresp, 2) = $doc/@xml:id/string()) then 'Source text' else 'Translation'
+                    for $doc at $pos in $docsToDisplay
+                    let $id := string($doc/@xml:id)
                     let $language := $doc/descendant::tei:language/@ident => upper-case()
-                    let $idno := $doc/descendant::tei:sourceDesc/descendant::tei:date/string()
-                    let $docWithSegs := transform:transform($doc, $app:xsl, ()) 
+                    let $type := if ($doc/substring(@corresp, 2) = $doc/@xml:id/string()) then 'Source text' else if ($language eq 'DE') then 'Version' else 'Translation'
+                    let $year := $doc/descendant::tei:sourceDesc/descendant::tei:date/string()
+                    let $docWithSegs := transform:transform($doc, $app:xsl, ())
                     let $contents := $pm-config:web-transform(
                             $docWithSegs,
                             map { 
@@ -62,10 +70,10 @@ declare %templates:wrap function app:create-panels($node as node(), $model as ma
                                 "webcomponents": 7},
                                 'grimm.odd')
                     return
-                        <template title="{$type} ({$language}, {$idno})">
+                        <template title="{$type} ({$language})">
                             {$contents}
                         </template>
-                    }
+                        }
                 </pb-panel>
             </template>
         </pb-grid>

@@ -73,4 +73,21 @@ declare function api:list($request as map(*)) {
         templates:apply(doc($template), $lookup, $model, tpu:get-template-config($request))
 };
 
+declare function api:metadata($request as map(*)) { 
+    let $id := $request?parameters?id
+    let $panel := $request?parameters?panel
+    let $pos := number($panel) + 1
+    let $documents := app:get-sorted-documents($id)
+    let $doc := $documents[$pos]
+    let $metadata := $pm-config:web-transform(
+                            $doc//tei:teiHeader,
+                            map { 
+                                "root": $doc, 
+                                "view": "single", 
+                                "header": "metadata", 
+                                "webcomponents": 7},
+                                'grimm.odd')
+    return 
+        $metadata
+    };
 

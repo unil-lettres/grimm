@@ -326,6 +326,43 @@
 					}
 				}
 			}
+		},
+		"/api/metadata/{id}/{panel}": {
+			"get": {
+				"summary": "Get formatted overview of documents in the collection",
+				"tags": ["collection"],
+				"operationId": "api:metadata",
+				"parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+						"name": "panel",
+						"in": "path",
+						"schema": {
+							"type": "string",
+                            "default": "0"
+						}
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Returns HTML with contents of popover",
+						"content": {
+							"text/html": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				}
+			}
 		}
     },
     "security": [
