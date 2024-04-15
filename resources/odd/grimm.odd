@@ -165,6 +165,20 @@
                 <elementSpec ident="teiHeader" mode="change">
                     <modelSequence predicate="$parameters?header='metadata'">
             <model behaviour="heading">
+                <param name="content" value="let $titleStmt := descendant::titleStmt return   (&lt;em&gt;{$titleStmt/title/string()}&lt;/em&gt;, ' by ', $titleStmt/author/string())"/>
+                <param name="level" value="3"/>
+            </model>
+            <model behaviour="pass-through">
+                <param name="content" value="let $bibl:= descendant::sourceDesc/bibl return string-join(($bibl/publisher, $bibl/date), ', ')"/>
+                <pb:template xmlns="" xml:space="preserve"><p class="metadata-p"><strong>Source edition</strong>: [[content]]</p></pb:template>
+            </model>
+            <model predicate="descendant::sourceDesc/bibl/editor[@role eq 'translator']/text()[1]/matches(., '[A-Za-z]')" behaviour="pass-through">
+                <param name="translators" value="descendant::sourceDesc/bibl/editor[@role eq 'translator']/text()[1]/replace(., '\s+$', '')"/>
+                <pb:template xmlns="" xml:space="preserve"><p class="metadata-p"><strong>Translator</strong>: [[translators]]</p></pb:template>
+            </model>
+        </modelSequence>
+                    <modelSequence predicate="$parameters?header='metadata-all'">
+            <model behaviour="heading">
                 <param name="content" value="let $source := ext-html:get-source(ext-html:get-tale-id(parent::TEI)) let $titleStmt := $source/descendant::titleStmt return  (&lt;em&gt;{$titleStmt/title}&lt;/em&gt;, ' by ', $titleStmt/author/string())"/>
                 <param name="level" value="3"/>
             </model>
@@ -177,7 +191,7 @@
                 <pb:template xmlns="" xml:space="preserve"><p class="metadata-p"><strong>Available versions</strong>: [[versions]]</p></pb:template>
             </model>
             <model behaviour="pass-through">
-                <param name="translators" value="let $translations := ext-html:get-versions-metadata(ext-html:get-tale-id(parent::TEI)) let $formatted := for $map in $translations where exists($map?translator) return $map?translator || ' (' || $map?language || ', ' || $map?origDate || ')' return string-join($formatted, ', ')"/>
+                <param name="translators" value="let $translations := ext-html:get-versions-metadata(ext-html:get-tale-id(parent::TEI)) let $formatted := for $map in $translations where exists($map?translator) return $map?translator || ' (' || $map?language || ', ' || $map?origDate || ')' return string-join($formatted, '; ')"/>
                 <pb:template xmlns="" xml:space="preserve"><p class="metadata-p"><strong>Translators</strong>: [[translators]]</p></pb:template>
             </model>
         </modelSequence>

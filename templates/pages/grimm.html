@@ -1,5 +1,6 @@
 <html>
     <head data-template="lib:include" data-template-path="templates/header.html">
+        <script data-target="script-preload" src="resources/scripts/edition.js"/>
     </head>
 <body>
     <pb-page data-template="pages:pb-page" unresolved="unresolved">
@@ -14,7 +15,7 @@
                 <section class="breadcrumbs">
                     <div>
                         <pb-view id="title-view1" src="document1" xpath="//teiHeader" view="single">
-                            <pb-param name="header" value="metadata"/>
+                            <pb-param name="header" value="metadata-all"/>
                         </pb-view>
                     </div>
                 </section>

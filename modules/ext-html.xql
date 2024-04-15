@@ -30,7 +30,7 @@ declare function pmf:get-versions-metadata($tale as xs:string) {
     let $id := map{"id" : $version/@xml:id/string() }
     let $title := map {"title": $version//tei:titleStmt/tei:title[1]}
     let $bibl := $version//tei:sourceDesc/tei:bibl
-    let $translatorNode := $bibl/tei:editor[@role eq 'translator']/text()[1]/replace(., '\s+', '')
+    let $translatorNode := $bibl/tei:editor[@role eq 'translator']/text()[1]/replace(., '\s+$', '')
     let $translator := if (string-length($translatorNode) gt 1) then map {"translator" : $translatorNode} else ()
     let $pubDate := map {"pubDate": $bibl/tei:date/string()}
     let $publisher := map {"publisher" : $bibl/tei:publisher/string()}
