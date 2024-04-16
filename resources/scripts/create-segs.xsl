@@ -7,6 +7,7 @@
     xpath-default-namespace="http://www.tei-c.org/ns/1.0"
     version="3.0">
     <xsl:mode on-no-match="shallow-copy"/>
+    <xsl:variable name="type" select="if(/TEI/@xml:id = substring(/TEI/@corresp, 2)) then 'base' else 'vers'"/>
     <xsl:template match="s">
         <xsl:variable name="precedingAnchor" select="preceding-sibling::*[1][name() eq 'anchor']"/>
         <xsl:variable name="nextAnchor" select="$precedingAnchor/following::anchor[1]"/>
@@ -19,12 +20,20 @@
                        <xsl:if test="$precedingAnchor/@corresp">
                            <xsl:attribute name="corresp" select="$precedingAnchor/@corresp"></xsl:attribute>
                        </xsl:if>
-                       <xsl:apply-templates select="descendant::node()[./following::anchor[. = $nextAnchor]]"/>
+                       <xsl:attribute name="type" select="$type"/>
+                       <xsl:choose>
+                           <xsl:when test="$nextAnchor">
+                               <xsl:apply-templates select="descendant::node()[./following::anchor[. = $nextAnchor]]"/>
+                           </xsl:when>
+                           <xsl:otherwise>
+                               <xsl:apply-templates/>
+                           </xsl:otherwise>
+                       </xsl:choose>                       
                    </xsl:element>
                    <xsl:apply-templates select="anchor"/>
                </xsl:when>
                <xsl:otherwise>
-                   <xsl:apply-templates select="anchor"/>
+                   <seg><xsl:apply-templates/></seg>
                </xsl:otherwise>
            </xsl:choose>
        <xsl:text> </xsl:text>
@@ -39,6 +48,7 @@
             <xsl:if test="@corresp">
                 <xsl:attribute name="corresp" select="@corresp"></xsl:attribute>
             </xsl:if>
+            <xsl:attribute name="type" select="$type"/>
             <xsl:apply-templates select="descendant::node()[./following::anchor[. = $nextAnchor]]"/>            
         </seg>
     </xsl:template>
