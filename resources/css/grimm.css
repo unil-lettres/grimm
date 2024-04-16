@@ -6,7 +6,16 @@ main.edition {
     width:95%;
     margin:auto;
 }
- 
+
+.edition #menu {
+    width: 100%;
+}
+
+paper-button[toggles][active] {
+  background: #B7C0CC;
+}
+
+
  /*Search mask*/
  
  main.search-mask {

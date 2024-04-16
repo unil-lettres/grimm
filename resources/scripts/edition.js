@@ -12,4 +12,19 @@ function getMetadata(popover) {
     then(function(html) {
         popover.alternate = html
     });
-}
+};
+
+window.addEventListener("WebComponentsReady", () => {
+  var button = document.getElementById('scroll');
+
+  button.addEventListener('change', function () {
+    var highlights = document.querySelectorAll('pb-highlight');
+    for (var i = 0; i < highlights.length; i++) {
+         if (button.active) {
+             highlights[i].removeAttribute('disabled');
+         } else {
+              highlights[i].setAttribute('disabled', 'true');
+             }
+    }
+  });
+});

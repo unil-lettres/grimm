@@ -149,16 +149,25 @@
                     <model predicate="not(@n)" behaviour="omit" useSourceRendition="true"/>
                 </elementSpec>
                 <elementSpec ident="seg" mode="change">
-                    <model behaviour="pass-through" useSourceRendition="true">
+                    <model predicate="not(@corresp) and not(@xml:id)" behaviour="inline">
+            <outputRendition xml:space="preserve">
+            color: gray;
+            </outputRendition>
+        </model>
+                    <model predicate="@corresp or (@type eq 'base')" behaviour="pass-through" useSourceRendition="true">
             <param name="content" value="."/>
             <param name="key" value="if (@corresp) then @corresp else @xml:id"/>
-            <pb:template xmlns="" xml:space="preserve"><pb-highlight highlight-self="true" key="[[key]]" emit="transcription" subscribe="transcription" scroll="scroll" duration="3000" trigger="click">[[content]]</pb-highlight></pb:template>
+            <pb:template xmlns="" xml:space="preserve"><pb-highlight highlight-self="true" key="[[key]]" scroll="true" disabled="true">[[content]]</pb-highlight></pb:template>
         </model>
                 </elementSpec>
             <elementSpec ident="body" mode="change">
                     <model behaviour="block">
             <outputRendition xml:space="preserve">
+            
             padding-right: 1em;
+height: 75vh;
+overflow-y: auto;
+            
             </outputRendition>
         </model>
                 </elementSpec>

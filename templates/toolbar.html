@@ -6,12 +6,11 @@
             <iron-icon icon="icons:view-carousel"/> <pb-i18n key="document.add-panel">Add</pb-i18n>
         </paper-button>
     </pb-grid-action>
-    <pb-zoom emit="transcription" direction="in" icon="icons:zoom-in"/>
-    <pb-zoom emit="transcription" direction="out" icon="icons:zoom-out"/>
-    <pb-navigation emit="transcription" keyboard="left" subscribe="transcription" direction="backward" unit="page">
-        <paper-icon-button icon="icons:chevron-left"/>
-    </pb-navigation>
-    <pb-navigation emit="transcription" keyboard="right" subscribe="transcription" direction="forward" unit="page">
-        <paper-icon-button icon="icons:chevron-right"/>
-    </pb-navigation>
+    <label for="scroll">
+    <paper-button toggles="true" id="scroll">
+        <iron-icon icon="icons:unfold-more"/>
+    </paper-button>
+    </label>
+  <!--  <pb-zoom emit="transcription" direction="in" icon="icons:zoom-in"/>
+    <pb-zoom emit="transcription" direction="out" icon="icons:zoom-out"/> -->
 </app-toolbar>
