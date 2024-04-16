@@ -51,9 +51,9 @@ declare
     let $id := $model?doc
     let $docsToDisplay := app:get-sorted-documents($id)
     return
-        <pb-grid id="grid" panels="[0]">
+        <pb-grid id="grid" panels="[0]" subscribe="transcription">
             <template>
-                <pb-panel>
+                <pb-panel emit="transcription" subscribe="transcription">
                     <pb-popover trigger="click" persistent="yes" onclick="getMetadata(this)" data-id="{$id}" slot="toolbar"><paper-icon-button icon="icons:info"/></pb-popover>
                     <pb-grid-action grid="#grid" slot="toolbar" action="remove">
                         <paper-icon-button icon="icons:close"/>
@@ -92,4 +92,4 @@ declare %templates:wrap function app:tale-title($node as node(), $model as map(*
     let $title := $source/descendant::tei:titleStmt/tei:title/string() 
     return
        $title
-        };
+    };
