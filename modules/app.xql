@@ -11,6 +11,8 @@ module namespace app="teipublisher.com/app";
 import module namespace templates="http://exist-db.org/xquery/html-templating";
 import module namespace config="http://www.tei-c.org/tei-simple/config" at "config.xqm";
 import module namespace pm-config="http://www.tei-c.org/tei-simple/pm-config" at "pm-config.xql";
+import module namespace ext-html="https://teipublisher.com/apps/grimm/custom" at "ext-html.xql";
+
 
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
@@ -43,7 +45,9 @@ declare function app:get-sorted-documents($id as xs:string) {
     return $docsToDisplay
     };
     
-declare %templates:wrap function app:create-panels($node as node(), $model as map(*)) {
+declare 
+    %templates:wrap 
+    function app:create-panels($node as node(), $model as map(*)) {
     let $id := $model?doc
     let $docsToDisplay := app:get-sorted-documents($id)
     return
@@ -57,9 +61,12 @@ declare %templates:wrap function app:create-panels($node as node(), $model as ma
                     {
                     for $doc at $pos in $docsToDisplay
                     let $id := string($doc/@xml:id)
-                    let $language := $doc/descendant::tei:language/@ident => upper-case()
-                    let $type := if ($doc/substring(@corresp, 2) = $doc/@xml:id/string()) then 'Source text' else if ($language eq 'DE') then 'Version' else 'Translation'
-                    let $year := $doc/descendant::tei:sourceDesc/descendant::tei:date/string()
+                    let $fileNameComponents := tokenize(substring-before(util:document-name($doc), '.xml'), '_')
+                    let $language := $fileNameComponents[4] => upper-case()
+                    let $type := if ($doc/substring(@corresp, 2) = $doc/@xml:id/string()) then 'Source' else $language
+                    let $title := $doc//tei:titleStmt/tei:title/string()
+                    let $author := $fileNameComponents[3]
+                    let $year := $fileNameComponents[2]
                     let $docWithSegs := transform:transform($doc, $app:xsl, ())
                     let $contents := $pm-config:web-transform(
                             $docWithSegs,
@@ -70,11 +77,19 @@ declare %templates:wrap function app:create-panels($node as node(), $model as ma
                                 "webcomponents": 7},
                                 'grimm.odd')
                     return
-                        <template title="{$type} ({$language})">
+                        <template title="{$type} – {$year} – {$author} – {$title}">
                             {$contents}
                         </template>
                         }
                 </pb-panel>
             </template>
         </pb-grid>
+        };
+
+declare %templates:wrap function app:tale-title($node as node(), $model as map(*)) {
+    let $id := $model?doc
+    let $source :=  doc($config:data-root || $id)
+    let $title := $source/descendant::tei:titleStmt/tei:title/string() 
+    return
+       $title
         };

@@ -38,11 +38,11 @@
         <body>
             <schemaSpec start="TEI teiCorpus" ident="grimm" source="teipublisher.odd"> <elementSpec ident="title" mode="change">
                     <model predicate="$parameters?view='tale'" behaviour="heading">
-            <param name="level" value="5"/>
-            <param name="content" value=". || ' (' || ext-html:available-languages($parameters?tale) || ')'"/>
+            <param name="level" value="4"/>
+            <param name="content" value="ext-html:get-title(., $parameters?tale)"/>
         </model>
                     <model predicate="$parameters?header='short'" behaviour="heading">
-            <param name="level" value="5"/>
+            <param name="level" value="4"/>
         </model>
                     <modelSequence predicate="parent::titleStmt/parent::fileDesc">
             <model predicate="preceding-sibling::title" behaviour="text">
@@ -152,7 +152,7 @@
                     <model behaviour="pass-through" useSourceRendition="true">
             <param name="content" value="."/>
             <param name="key" value="if (@corresp) then @corresp else @xml:id"/>
-            <pb:template xmlns="" xml:space="preserve"><pb-highlight highlight-self="true" key="[[key]]" emit="transcription" subscribe="transcription">[[content]]</pb-highlight></pb:template>
+            <pb:template xmlns="" xml:space="preserve"><pb-highlight highlight-self="true" key="[[key]]" emit="transcription" subscribe="transcription" scroll="scroll" duration="3000" trigger="click">[[content]]</pb-highlight></pb:template>
         </model>
                 </elementSpec>
             <elementSpec ident="body" mode="change">
@@ -178,10 +178,6 @@
             </model>
         </modelSequence>
                     <modelSequence predicate="$parameters?header='metadata-all'">
-            <model behaviour="heading">
-                <param name="content" value="let $source := ext-html:get-source(ext-html:get-tale-id(parent::TEI)) let $titleStmt := $source/descendant::titleStmt return  (&lt;em&gt;{$titleStmt/title}&lt;/em&gt;, ' by ', $titleStmt/author/string())"/>
-                <param name="level" value="3"/>
-            </model>
             <model behaviour="pass-through">
                 <param name="content" value="let $source := ext-html:get-source(ext-html:get-tale-id(parent::TEI)) let $bibl:= $source/descendant::sourceDesc/bibl return string-join(($bibl/publisher, $bibl/date), ', ')"/>
                 <pb:template xmlns="" xml:space="preserve"><p class="metadata-p"><strong>Source edition</strong>: [[content]]</p></pb:template>

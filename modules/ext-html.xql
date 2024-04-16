@@ -39,3 +39,8 @@ declare function pmf:get-versions-metadata($tale as xs:string) {
     order by $origDate?origDate
     return map:merge(($id, $title, $translator, $publisher, $pubDate, $language, $origDate))
     };
+    
+declare function pmf:get-title($title as node(), $tale as xs:string) {
+    let $languages := ' (' || pmf:available-languages($tale) || ')'
+    let $idno := substring-before($tale, '_')
+    return $idno || ' ' || $title || $languages};
