@@ -17,7 +17,7 @@ import module namespace ext-html="https://teipublisher.com/apps/grimm/custom" at
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
-declare variable $app:xsl := doc('../resources/scripts/create-segs.xsl');
+declare variable $app:xsl := doc('../resources/xslt/create-segs.xsl');
 
 declare
     %templates:wrap
@@ -51,7 +51,7 @@ declare
     let $id := $model?doc
     let $docsToDisplay := app:get-sorted-documents($id)
     return
-        <pb-grid id="grid" panels="[0]" subscribe="transcription">
+        <pb-grid id="grid" panels="[0]" emit="transcription" subscribe="transcription">
             <template>
                 <pb-panel emit="transcription" subscribe="transcription">
                     <pb-popover trigger="click" persistent="yes" onclick="getMetadata(this)" data-id="{$id}" slot="toolbar"><paper-icon-button icon="icons:info"/></pb-popover>
