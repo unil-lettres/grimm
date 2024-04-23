@@ -41,3 +41,8 @@ function getMetadata(popover) {
         popover.alternate = html
     });
 };
+
+// Placeholder 
+function disableSync(button) {
+    console.log('stop sync');
+   };

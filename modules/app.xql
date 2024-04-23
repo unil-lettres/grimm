@@ -54,6 +54,9 @@ declare
         <pb-grid id="grid" panels="[0]" emit="transcription" subscribe="transcription">
             <template>
                 <pb-panel emit="transcription" subscribe="transcription">
+                    <paper-button toggles="true" id="disable" slot="toolbar" onclick="disableSync(this)">
+                        <img src="resources/images/disable-sync.svg" title="Disable sync" alt="disable sync icon" style="height:2rem"/>
+                        </paper-button>
                     <pb-popover trigger="click" persistent="yes" onclick="getMetadata(this)" data-id="{$id}" slot="toolbar"><paper-icon-button icon="icons:info"/></pb-popover>
                     <pb-grid-action grid="#grid" slot="toolbar" action="remove">
                         <paper-icon-button icon="icons:close"/>
