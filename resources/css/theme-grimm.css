@@ -11,6 +11,10 @@ main.edition {
     width: 100%;
 }
 
+#click img, #scroll img {
+    height: 2rem;
+}
+
 paper-button[toggles][active] {
   background: #B7C0CC;
 }

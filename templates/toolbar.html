@@ -6,11 +6,13 @@
             <iron-icon icon="icons:view-carousel"/> <pb-i18n key="document.add-panel">Add</pb-i18n>
         </paper-button>
     </pb-grid-action>
-    <label for="scroll">
     <paper-button toggles="true" id="scroll">
-        <iron-icon icon="icons:unfold-more"/>
+         <img src="../resources/images/scroll-icon.svg" title="Sync versions by hovering on scroll" alt="mouse icon left click"/>
     </paper-button>
-    </label>
+    <paper-button toggles="true" id="click">
+        <img src="../resources/images/click-icon.svg" title="Sync versions by clicking on segment" alt="mouse icon scroll wheel"/>
+    </paper-button>
+   
   <!--  <pb-zoom emit="transcription" direction="in" icon="icons:zoom-in"/>
     <pb-zoom emit="transcription" direction="out" icon="icons:zoom-out"/> -->
 </app-toolbar>
