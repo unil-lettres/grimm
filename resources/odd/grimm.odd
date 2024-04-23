@@ -28,7 +28,9 @@
             </sourceDesc>
         </fileDesc>
         <encodingDesc>
-            <tagsDecl/>
+            <tagsDecl>
+                <rendition source="grimm.css"/>
+            </tagsDecl>
         </encodingDesc>
         <revisionDesc>
             <change when="2024-04-02+02:00">Initial version</change>
@@ -149,7 +151,7 @@
                     <model predicate="not(@n)" behaviour="omit" useSourceRendition="true"/>
                 </elementSpec>
                 <elementSpec ident="seg" mode="change">
-                    <model predicate="not(@corresp) and not(@xml:id)" behaviour="inline">
+                    <model predicate="not(@corresp) and not(@type)" behaviour="inline">
             <outputRendition xml:space="preserve">
             color: gray;
             </outputRendition>
@@ -164,9 +166,13 @@
                     <model behaviour="block">
             <outputRendition xml:space="preserve">
             
+            
+            
             padding-right: 1em;
 height: 75vh;
 overflow-y: auto;
+            
+            
             
             </outputRendition>
         </model>
@@ -204,6 +210,21 @@ overflow-y: auto;
                     <model output="fo" behaviour="omit"/>
                     <model output="web" predicate="$parameters?header='short'" behaviour="block"/>
                     <model output="web" behaviour="metadata"/>
+                </elementSpec>
+            <elementSpec ident="ab" mode="change">
+                    <model behaviour="inline" cssClass="paragraph"/>
+                </elementSpec>
+            <elementSpec ident="p" mode="change">
+                    <model predicate="s[@type eq 'nextParagraph']" behaviour="paragraph" cssClass="surplus"/>
+                    <model predicate="preceding-sibling::p[1][@type eq 'nextParagraph']" behaviour="paragraph" cssClass="incomplete"/>
+                    <model behaviour="paragraph" useSourceRendition="true">
+            <outputRendition xml:space="preserve">
+            text-align: justify;
+            </outputRendition>
+        </model>
+                </elementSpec>
+                <elementSpec ident="s" mode="add">
+                    <model predicate="@type eq 'nextParagraph'" behaviour="inline" cssClass="nextParagraph"/>
                 </elementSpec>
             </schemaSpec>
         </body>

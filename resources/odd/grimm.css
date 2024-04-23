@@ -1,0 +1,21 @@
+/*Styling of paragraphs to convey source (the actual p elements do not correspond
+to the source because of overlapping issues with the anchors */
+p, .paragraph {
+    text-align: justify;
+    margin: 1rem 0;
+    display: block;
+}
+
+.nextParagraph {
+    text-align: justify;
+    display: block;
+    margin-top: 1rem;
+}
+
+.incomplete {
+    margin-top: 0;
+}
+
+.surplus {
+    margin-bottom: 0;
+}
