@@ -19,3 +19,7 @@ p, .paragraph {
 .surplus {
     margin-bottom: 0;
 }
+
+.hide {
+    display:none;
+}

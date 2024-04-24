@@ -156,11 +156,20 @@
             color: gray;
             </outputRendition>
         </model>
-                    <model predicate="@corresp or (@type eq 'base')" behaviour="pass-through" useSourceRendition="true">
-            <param name="content" value="."/>
-            <param name="key" value="if (@corresp) then @corresp else @xml:id"/>
-            <pb:template xmlns="" xml:space="preserve"><pb-highlight highlight-self="true" key="[[key]]" scroll="true" disabled="true">[[content]]</pb-highlight></pb:template>
-        </model>
+                    <modelSequence predicate="@corresp or (@type eq 'base')">
+            <model behaviour="pass-through">
+                <desc>Creates span elements for sync on click</desc>
+                <param name="content" value="."/>
+                <param name="key" value="if (@corresp) then @corresp else @xml:id"/>
+                <pb:template xmlns="" xml:space="preserve"><span class="sync hide" data-ref="[[key]]">[[content]]</span></pb:template>
+            </model>
+            <model behaviour="pass-through" useSourceRendition="true">
+                <desc>Creates pb-highlight elements</desc>
+                <param name="content" value="."/>
+                <param name="key" value="if (@corresp) then @corresp else @xml:id"/>
+                <pb:template xmlns="" xml:space="preserve"><pb-highlight highlight-self="true" key="[[key]]" scroll="true" disabled="true">[[content]]</pb-highlight></pb:template>
+            </model>
+        </modelSequence>
                 </elementSpec>
             <elementSpec ident="body" mode="change">
                     <model behaviour="block">
@@ -168,9 +177,13 @@
             
             
             
+            
+            
             padding-right: 1em;
 height: 75vh;
 overflow-y: auto;
+            
+            
             
             
             
