@@ -29,6 +29,12 @@ window.addEventListener("WebComponentsReady", () => {
             }
         })
     });
+    
+    // With pb-highlight enabled, fire closest match function to 
+    pbEvents.subscribe('pb-highlight-on', null, (ev) => {
+        var key = ev.detail.id;
+        closestMatch(key, 'scroll');
+        });
 });
 
 // Desactivate click/scroll button when selecting the other option
@@ -64,6 +70,7 @@ function clickSync(evt) {
     })
 };
 
+// Enable scroll synchronization (based on pb-hightlight elements)
 function scrollSync(evt) {
     disableCounterpart(this, evt.currentTarget.buttonCounterpart);
     clearHighlights();
@@ -87,10 +94,11 @@ function highlightSeg(seg) {
             block: "center", behavior: "instant"
         })
     })
-    closestMatch(key);
+    closestMatch(key, 'click');
 };
 
-function closestMatch(key) {
+//When there is no exact match, hightlight in a different color the closest one
+function closestMatch(key, mode) {
     const source = key.split("_").pop();
     var panels = document.querySelectorAll('pb-panel');
     panels.forEach(panel => {
@@ -104,13 +112,23 @@ function closestMatch(key) {
             const closest = values.reduce((a, b) => {
                 return Math.abs(b - source) < Math.abs(a - source) ? b : a;
                 });
-            spans.forEach(span => {
-                if (span.dataset.ref.split("_").pop() == closest) {
-                    span.style.backgroundColor = 'red';
-                    span.scrollIntoView({block: "center", behavior: "instant"})
-                    }
-                })    
+            switch (mode) {
+                case 'scroll':
+                    var highlights = panel.querySelectorAll('pb-highlight');
+                    highlights.forEach(pb => {
+                        if (pb.getAttribute('key').split("_").pop() == closest) {
+                        pb.style.backgroundColor = 'var(--highlight-closest-color)';
+                        } });
+                    break;
+                default: 
+                    spans.forEach(span => {
+                    if (span.dataset.ref.split("_").pop() == closest) {
+                        span.style.backgroundColor = 'var(--highlight-closest-color)';
+                        span.scrollIntoView({block: "center", behavior: "instant"})
+                        }
+                    })
             }
+          }
         })
     };
 
