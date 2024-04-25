@@ -30,10 +30,14 @@ window.addEventListener("WebComponentsReady", () => {
         })
     });
     
-    // With pb-highlight enabled, fire closest match function to 
+    /* With pb-highlight enabled, fire closest match function to higlight segment when there is no match;
+    then clean it off */
     pbEvents.subscribe('pb-highlight-on', null, (ev) => {
         var key = ev.detail.id;
         closestMatch(key, 'scroll');
+        });
+    pbEvents.subscribe('pb-highlight-off', null, (ev) => {
+         clearHighlights();
         });
 });
 
@@ -118,6 +122,7 @@ function closestMatch(key, mode) {
                     highlights.forEach(pb => {
                         if (pb.getAttribute('key').split("_").pop() == closest) {
                         pb.style.backgroundColor = 'var(--highlight-closest-color)';
+                        pb.classList.add('closeMatch')
                         } });
                     break;
                 default: 
@@ -133,7 +138,7 @@ function closestMatch(key, mode) {
     };
 
 function clearHighlights() {
-    var spans = document.querySelectorAll('[data-ref]');
+    var spans = document.querySelectorAll('[data-ref], .closeMatch');
     spans.forEach(span => {
         span.style.backgroundColor = 'inherit'
     })
