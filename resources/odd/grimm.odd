@@ -161,7 +161,7 @@
                 <desc>Creates span elements for sync on click</desc>
                 <param name="content" value="."/>
                 <param name="key" value="if (@corresp) then @corresp else @xml:id"/>
-                <pb:template xmlns="" xml:space="preserve"><span class="sync hide" data-ref="[[key]]">[[content]]</span></pb:template>
+                <pb:template xmlns="" xml:space="preserve"><span class="syncSpan hide" data-ref="[[key]]" onclick="highlightSeg(this)">[[content]]</span></pb:template>
             </model>
             <model behaviour="pass-through" useSourceRendition="true">
                 <desc>Creates pb-highlight elements</desc>
@@ -179,9 +179,11 @@
             
             
             
+            
             padding-right: 1em;
 height: 75vh;
 overflow-y: auto;
+            
             
             
             

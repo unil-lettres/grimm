@@ -23,3 +23,7 @@ p, .paragraph {
 .hide {
     display:none;
 }
+
+.syncSpan {
+    cursor:pointer;
+}
