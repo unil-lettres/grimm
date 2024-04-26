@@ -330,7 +330,6 @@
 		"/api/metadata/{id}/{panel}": {
 			"get": {
 				"summary": "Get formatted overview of documents in the collection",
-				"tags": ["collection"],
 				"operationId": "api:metadata",
 				"parameters": [
                     {
