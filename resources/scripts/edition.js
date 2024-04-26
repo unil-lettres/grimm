@@ -14,7 +14,7 @@ window.addEventListener("WebComponentsReady", () => {
     /* If a panel is added or changed, click on the sync buttons
      to enable the appropriate elements in the new panel */
     pbEvents.subscribe("pb-panel", 'transcription', (ev) => {
-        const buttons =[buttonScroll, buttonClick];
+        const buttons = [buttonScroll, buttonClick];
         buttons.forEach(button => {
             if (button.active) {
                 button.click();
@@ -22,12 +22,8 @@ window.addEventListener("WebComponentsReady", () => {
             };
         });
         // Then disable it for the panels that have “disable sync” active
-        var disableButtons = document.querySelectorAll('.disable');
-        disableButtons.forEach(button => {
-            if (button.active) {
-                disableSync(button)
-            }
-        })
+        disablePanels();
+
     });
     
     /* With pb-highlight enabled, fire closest match function to higlight segment when there is no match;
@@ -40,6 +36,16 @@ window.addEventListener("WebComponentsReady", () => {
          clearHighlights();
         });
 });
+
+function disablePanels() {
+    var disableButtons = document.querySelectorAll('.disable');
+    disableButtons.forEach(button => {
+        if (button.active) {
+            disableSync(button);
+            console.log('Disable sync gets fired')
+        };
+    })
+};
 
 // Desactivate click/scroll button when selecting the other option
 function disableCounterpart(button, counterpart) {
@@ -62,7 +68,7 @@ function clickSync(evt) {
         } else {
             pb.classList.remove('hide')
         }
-    })
+    });
     // Hide/show the spans for clicking. The already contain an inline event listener
     var spans = document.querySelectorAll('.syncSpan')
     spans.forEach(span => {
@@ -71,7 +77,8 @@ function clickSync(evt) {
         } else {
             span.classList.add('hide')
         }
-    })
+    });
+    disablePanels();
 };
 
 // Enable scroll synchronization (based on pb-hightlight elements)
@@ -85,7 +92,8 @@ function scrollSync(evt) {
         } else {
             pb.setAttribute('disabled', 'true');
         }
-    })
+    });
+    disablePanels();
 };
 
 function highlightSeg(seg) {
@@ -156,10 +164,11 @@ function disableSync(button) {
         if (button.active) {
             pb.setAttribute('disabled', 'true');
             pb.removeAttribute('scroll');
-            pb.classList.remove('hide')
+            pb.classList.remove('hide');
         } else if (syncModeScroll.active) {
             pb.removeAttribute('disabled');
             pb.setAttribute('scroll', 'true');
+            pb.classList.remove('hide');
         } else if (syncModeClick.active) {
             pb.classList.add('hide')
             }
@@ -167,10 +176,13 @@ function disableSync(button) {
     var spans = panel.querySelectorAll('.syncSpan');
     spans.forEach(span => {
         if (button.active) {
-            span.classList.add('hide')
+            span.classList.add('hide');
         } else if (syncModeClick.active) {
-            span.classList.remove('hide')
+            span.classList.remove('hide');
         }
+        else if (syncModeScroll.active) {
+            span.classList.add('hide');
+            }
     })
 };
 
