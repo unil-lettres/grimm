@@ -21,7 +21,7 @@ window.addEventListener("WebComponentsReady", () => {
                 button.click()
             };
         });
-        // Then disable it for the panels that have “dysable sync” active
+        // Then disable it for the panels that have “disable sync” active
         var disableButtons = document.querySelectorAll('.disable');
         disableButtons.forEach(button => {
             if (button.active) {
