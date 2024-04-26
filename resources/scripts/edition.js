@@ -101,7 +101,8 @@ function highlightSeg(seg) {
     closestMatch(key, 'click');
 };
 
-//When there is no exact match, hightlight in a different color the closest one
+/*When there is no exact match, hightlight in a different color the closest one
+Modes could be merged into one */
 function closestMatch(key, mode) {
     const source = key.split("_").pop();
     var panels = document.querySelectorAll('pb-panel');
@@ -120,7 +121,7 @@ function closestMatch(key, mode) {
                 case 'scroll':
                     var highlights = panel.querySelectorAll('pb-highlight');
                     highlights.forEach(pb => {
-                        if (pb.getAttribute('key').split("_").pop() == closest) {
+                        if (pb.disabled == false && pb.getAttribute('key').split("_").pop() == closest) {
                         pb.style.backgroundColor = 'var(--highlight-closest-color)';
                         pb.classList.add('closeMatch')
                         } });
