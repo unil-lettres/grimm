@@ -43,7 +43,7 @@ body {
     --pb-breadcrumbs-font-size: 18px;
     --pb-color-primary: #0E390E;
     --pb-color-inverse: #FFDFF6;
-    --pb-color-lighter: #124712;
+    --pb-color-lighter: #7ebf7e;
     --pb-color-focus: #C79663;
     --pb-annotation-stripes-light: #e0e0ef;
     --pb-annotation-stripes-dark: #50505f;
@@ -70,7 +70,7 @@ body {
     --pb-link-color: #8D5270;
     --pb-link-font-family: var(--pb-serif-font-family);
     --pb-highlight-color: #EEE8AA;
-    --highlight-closest-color: #DB7093;
+    --highlight-closest-color: var(--pb-color-inverse);
     --paper-input-container-focus-color: var(--pb-color-focus);
     --pb-view-max-width: 920px;
     font: var(--pb-base-font);
