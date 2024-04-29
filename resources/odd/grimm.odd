@@ -40,7 +40,7 @@
         <body>
             <schemaSpec start="TEI teiCorpus" ident="grimm" source="teipublisher.odd"> <elementSpec ident="title" mode="change">
                     <model predicate="$parameters?view='tale'" behaviour="heading">
-            <param name="level" value="4"/>
+            <param name="level" value="3"/>
             <param name="content" value="ext-html:get-title(., $parameters?tale)"/>
         </model>
                     <model predicate="$parameters?header='short'" behaviour="heading">
@@ -91,6 +91,10 @@
                 </elementSpec>
                 <elementSpec ident="titleStmt" mode="change">
                     <modelSequence predicate="$parameters?view='tale'">
+            <model behaviour="graphic" cssClass="thumbnail">
+                <param name="title" value="'Illustration for tale ' || title[1]/string()"/>
+                <param name="url" value="ext-html:get-thumbnail($parameters?tale)"/>
+            </model>
             <model behaviour="link">
                 <param name="content" value="title[1]"/>
                 <param name="uri" value="$parameters?doc"/>
@@ -180,9 +184,11 @@
             
             
             
+            
             padding-right: 1em;
 height: 75vh;
 overflow-y: auto;
+            
             
             
             

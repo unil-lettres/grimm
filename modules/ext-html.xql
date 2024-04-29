@@ -43,4 +43,12 @@ declare function pmf:get-versions-metadata($tale as xs:string) {
 declare function pmf:get-title($title as node(), $tale as xs:string) {
     let $languages := ' (' || pmf:available-languages($tale) || ')'
     let $idno := substring-before($tale, '_')
-    return $idno || ' ' || $title || $languages};
+    return $idno || ' ' || $title || $languages
+    };
+    
+declare function pmf:get-thumbnail($tale as xs:string) {
+    let $siglum := substring-before($tale, '_')
+    let $link := $config:context-path || '/resources/images/' || $siglum || '.png'
+    return
+        if (util:binary-doc-available(replace($link, 'exist', 'db'))) then $link else $config:context-path || '/resources/images/image-placeholder.png' 
+};

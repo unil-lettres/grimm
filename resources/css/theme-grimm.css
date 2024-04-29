@@ -20,7 +20,17 @@ paper-button[toggles][active] {
 }
 
 
- /*Search mask*/
+/* Landing page */
+
+.tale {
+    display: flex;
+    align-items: center;
+}
+
+.thumbnail {
+    width: 8rem;
+    margin: 1rem;
+}
  
  main.search-mask {
             margin: 0 5em;
