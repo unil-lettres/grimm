@@ -197,7 +197,8 @@ paper-button[toggles][active] {
                 main {
                 display: flex;
                 flex-direction: row;
-                margin-top: 10px;
+                height: 78vh;
+                overflow: scroll;
             }
 
             .search-panel {
@@ -217,7 +218,6 @@ paper-button[toggles][active] {
                 flex: 2 1;
                 overflow: scroll;
                 margin: 0 3em;
-                height: calc(100vh - 140px);
             }
 
             #results paper-card {
