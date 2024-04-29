@@ -1,0 +1,28 @@
+<html>
+    <head data-template="lib:include" data-template-path="templates/header.html">
+        <script data-target="script-preload" src="resources/scripts/browse.js"/>
+    </head>
+<body>
+    <pb-page data-template="pages:pb-page" api-version="1.0" unresolved="unresolved" theme="resources/css/components.css" locales="resources/i18n">
+        <app-drawer-layout force-narrow="force-narrow">
+        <app-drawer data-template="lib:include" data-template-path="templates/drawer.html"/>
+            <app-header-layout>
+                <app-header slot="header" reveals="reveals" fixed="fixed" effects="waterfall">
+                    <app-toolbar data-template="lib:include" data-template-path="templates/menu.html">
+                        <pb-progress subscribe="search" indeterminate="indeterminate" bottom-item="bottom-item" data-target="menubar-after"/>
+                    </app-toolbar>
+                </app-header>
+                <main class="static">
+                    <h1>About</h1>
+                    <p>Placerat erat cum class elit? Metus montes aliquam netus praesent placerat sociis sollicitudin condimentum! Curae; imperdiet erat tristique amet ut eros. Mus felis varius arcu mi primis fames mattis dictumst mollis faucibus fermentum! Magnis tempus fames sit accumsan placerat at fames! Inceptos pretium fusce eget. Faucibus lectus sociis rhoncus sem litora aliquam libero ultrices. Feugiat habitant rhoncus sem rutrum varius eget a lobortis vel torquent. Sodales tempor natoque venenatis ante curae; tempus lorem volutpat parturient lorem tellus. Nostra sem nullam lacus nam!</p>
+                    <p>Ipsum habitasse interdum ullamcorper varius leo condimentum urna lacus iaculis vivamus venenatis morbi. Cum viverra nascetur augue. Gravida sollicitudin congue ridiculus morbi justo in, aptent tempus ac pulvinar tempus id. Fermentum bibendum vivamus dignissim sollicitudin vitae. Leo nunc odio vehicula faucibus dignissim nulla eros netus? Cubilia curabitur in justo class nibh ullamcorper vulputate eros mus nulla tincidunt! Inceptos proin ornare, urna lobortis. Tincidunt nullam justo donec curabitur taciti et penatibus massa curae; faucibus. Quis facilisi magna nullam eros velit nisi amet. Tempus egestas inceptos conubia.</p>
+                    <p>Hendrerit; elementum fusce penatibus. Nascetur vulputate conubia et tincidunt ante mi egestas quis conubia lorem. Accumsan id pharetra netus! Faucibus orci curae; ligula est. Ligula ut class volutpat. Sodales urna himenaeos dolor vel phasellus netus mus commodo aliquet commodo duis ut! Pellentesque habitasse parturient; fusce scelerisque senectus sagittis consectetur parturient curae;! Nunc at elementum pharetra justo est felis. Elementum torquent accumsan scelerisque ligula, sociosqu commodo feugiat. Congue nostra sit molestie?</p>
+                </main>
+            </app-header-layout>
+            <footer data-template="templates:include" data-template-path="templates/footer.html"/>
+        </app-drawer-layout>
+    </pb-page>
+    <div class="splash"/>
+</body>
+
+</html>
