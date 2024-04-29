@@ -52,3 +52,28 @@ declare function pmf:get-thumbnail($tale as xs:string) {
     return 
         $link
 };
+
+declare function pmf:create-toc-item($div as node()) {
+    <li><a href="#{$div/@xml:id}" target="_blank">{$div/head(tei:head)}</a>
+        {if ($div/tei:div) then <ul>
+            {for $subdiv in $div/tei:div return pmf:create-toc-item($subdiv)}
+        </ul> else ()}
+    </li>
+    };
+    
+declare function pmf:toc($config as map(*), $node as element(), $content as item()*) {
+    let $lang := $config?parameters?language
+    return
+    <aside class="toc"><ul>
+        {for $div in $node/tei:div[@xml:lang eq $lang] return
+            <li><a href="#{$div/@xml:id}" target="_blank">{$div/head(tei:head)}</a>
+                {if ($div/tei:div) then 
+                    <ul>
+                    {for $subdiv in $div/tei:div return pmf:create-toc-item($subdiv)}
+                    </ul> 
+                else ()}
+            </li>}
+    </ul>
+    </aside>
+    };
+
