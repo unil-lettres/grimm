@@ -4,11 +4,12 @@
             <!-- language selector -->
        <!--     <pb-lang name="lang" data-template="pages:languages"/> -->
             <paper-button>
-                <a href="${app}/index.html" data-template="pages:parse-params">Start</a>
+                <a href="${app}/texts" data-template="pages:parse-params">Start</a>
             </paper-button>
             <paper-button>
-                <a href="${app}/about.html" data-template="pages:parse-params">About</a>
+                <a href="${app}/about" data-template="pages:parse-params">About</a>
             </paper-button>
+            <pb-search action="${app}/search" data-template="pages:parse-params" value="${query}" redirect="redirect"/>
         </pb-media-query>
     </div>
 </app-drawer>
