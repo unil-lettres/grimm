@@ -38,10 +38,10 @@ function app:list-texts($node as node(), $model as map(*), $root as xs:string?) 
 };
 
 declare function app:get-sorted-documents($id as xs:string) {
-    let $selectedDoc := doc($config:data-root || $id)
-    let $documents := collection($config:data-default)//tei:TEI[not(@xml:id/string() = $selectedDoc/tei:TEI/@xml:id/string())][@corresp = $selectedDoc/tei:TEI/@corresp]
+    let $selectedDoc := collection($config:data-default)/id($id)
+    let $documents := collection($config:data-default)//tei:TEI[not(@xml:id/string() = $id)][@corresp = $selectedDoc/@corresp]
     let $sortedDocuments := for $x in $documents order by $x/descendant::tei:sourceDesc//tei:date return $x
-    let $docsToDisplay := ($selectedDoc/tei:TEI, $sortedDocuments)
+    let $docsToDisplay := ($selectedDoc, $sortedDocuments)
     return $docsToDisplay
     };
     
@@ -91,7 +91,7 @@ declare
 
 declare %templates:wrap function app:tale-title($node as node(), $model as map(*)) {
     let $id := $model?doc
-    let $source :=  doc($config:data-root || $id)
+    let $source :=  collection($config:data-root)/id($id)
     let $title := $source/descendant::tei:titleStmt/tei:title/string() 
     return
        $title
