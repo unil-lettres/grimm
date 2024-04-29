@@ -5,13 +5,7 @@
 <body>
     <pb-page data-template="pages:pb-page" api-version="1.0" unresolved="unresolved" theme="resources/css/components.css" locales="resources/i18n">
         <app-drawer-layout force-narrow="force-narrow">
-            <app-drawer slot="drawer" align="right">
-                <div class="drawer-content">
-                    <pb-media-query query="(max-width: 1023px)">
-                        <div data-template="lib:include" data-template-path="templates/menu-drawer.html"/>
-                    </pb-media-query>
-                </div>
-            </app-drawer>
+            <app-drawer data-template="lib:include" data-template-path="templates/drawer.html"/>
             <app-header-layout>
                 <app-header slot="header" reveals="reveals" fixed="fixed" effects="waterfall">
                     <app-toolbar data-template="lib:include" data-template-path="templates/menu.html">

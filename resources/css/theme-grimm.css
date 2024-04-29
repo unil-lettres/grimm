@@ -2,7 +2,7 @@ app-header-layout {
     min-height: 95vh;
 }
 
-main.edition {
+main.edition, main.static {
     width:95%;
     margin:auto;
 }
@@ -288,4 +288,10 @@ paper-button[toggles][active] {
 footer {
     display:flex;
     justify-content:space-around;
+}
+
+/*Drawer*/
+
+.drawer-content paper-button {
+    display: block;
 }
