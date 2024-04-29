@@ -1,0 +1,18 @@
+{
+    "title": "Les Contes de Grimm",
+    "menu": {
+        "start": "Start",
+        "about": "À propos"
+    },
+    "facets": {
+        "translator": "Traducteur·rice",
+        "century": "Siècle",
+        "show": "Afficher tout"
+    },
+    "edition": {
+        "source": "Édition source",
+        "versions": "Versions disponibles",
+        "translator": "Traducteur·rice",
+        "translators": "Traducteur·rice·s"
+    }
+}

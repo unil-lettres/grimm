@@ -1,6 +1,19 @@
-{
+{	"title": "Grimms’ Fairy Tales",
+
+	"menu": {
+		"start": "Start",
+		"about": "About"
+},
     "facets": {
     	"translator": "Translator",
-    	"century": "Century"
-    }
+    	"century": "Century",
+    	"show": "Show all"
+    },
+    "edition": {
+    	"source": "Source edition",
+    	"versions": "Available versions",
+    	"translator": "Translator",
+    	"translators": "Translators"
+}
+	
 }

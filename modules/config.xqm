@@ -149,7 +149,13 @@ declare variable $config:facets := [
         "max": 5,
         "hierarchical": false(),
         "output": function($label) {
-           $label || 'th'}
+            let $language := request:get-parameter('language', $config:default-language)
+            return 
+                switch ($language)
+                    case 'en' return $label || 'th'
+                    case 'fr' return $label || 'ᵉ'
+                    default return $label
+                    }
     }
 ];
 

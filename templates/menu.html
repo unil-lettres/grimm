@@ -1,15 +1,19 @@
 <app-toolbar class="menubar">
     <a href="${app}/texts" class="logo" data-template="pages:parse-params"/>
     <pb-media-query query="min-width: 1024px">
-        <a href="${app}/texts" data-template="pages:parse-params">Start</a>
-        <a href="${app}/about" data-template="pages:parse-params">About</a>
+        <a href="${app}/texts" data-template="pages:parse-params">
+            <pb-i18n key="menu.start">Start</pb-i18n>
+        </a>
+        <a href="${app}/about" data-template="pages:parse-params">
+            <pb-i18n key="menu.about">About</pb-i18n>
+        </a>
    </pb-media-query>
 
     <!-- Search input -->
     <pb-search action="${app}/search" data-template="pages:parse-params" value="${query}" redirect="redirect"/>
-<!--    <pb-media-query query="min-width: 1024px">
+    <pb-media-query query="min-width: 1024px">
        <pb-lang name="lang" data-template="pages:languages"/> 
-    </pb-media-query>-->
+    </pb-media-query>
     <pb-media-query query="(max-width: 1023px)">
         <paper-icon-button icon="icons:menu" drawer-toggle="drawer-toggle"/>
     </pb-media-query>

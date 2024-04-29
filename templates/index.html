@@ -3,7 +3,7 @@
         <script data-target="script-preload" src="resources/scripts/browse.js"/>
     </head>
 <body>
-    <pb-page data-template="pages:pb-page" api-version="1.0" unresolved="unresolved" theme="resources/css/components.css" locales="resources/i18n" supported-languages="en">
+    <pb-page data-template="pages:pb-page" api-version="1.0" unresolved="unresolved" theme="resources/css/components.css" locales="resources/i18n" supported-languages="en,fr">
         <app-drawer-layout force-narrow="force-narrow">
             <app-drawer data-template="lib:include" data-template-path="templates/drawer.html"/>
             <app-header-layout>
@@ -14,7 +14,9 @@
                 </app-header>
                 <main class="search-mask">
                     <section>
-                        <h1 class="tp-title" data-template="config:app-title"/>
+                        <h1 class="tp-title">
+                                <pb-i18n key="title">Grimms’ Fairy Tales</pb-i18n>
+                            </h1>
                     </section>
                     <section class="panels">
                         <paper-card class="doclist" elevation="0">
@@ -23,7 +25,7 @@
                                     <aside data-template="browse:form">
                                         <pb-search style="display:none" id="search-form" subscribe="search" data-template="pages:parse-params" value="${query}" subforms=".facets" submit-on-load="submit-on-load">
                                         </pb-search>
-                                        <pb-custom-form class="facets" url="api/search/facets" event="pb-results-received" subscribe="search" emit="search"/>
+                                        <pb-custom-form class="facets" url="api/search/facets" event="pb-results-received" subscribe="search" emit="search" use-language="use-language"/>
                                     </aside>
                                     <div id="document-list">
                                         <pb-paginate id="paginate" per-page="10" range="5" subscribe="search" emit="search"/>

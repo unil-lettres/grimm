@@ -27,3 +27,7 @@ p, .paragraph {
 .syncSpan {
     cursor:pointer;
 }
+
+.metadata-p > span {
+    font-weight: bold;
+}
