@@ -71,7 +71,7 @@ declare variable $config:enable-proxy-caching :=
 (:~
  : Should documents be located by xml:id or filename?
  :)
-declare variable $config:address-by-id := false();
+declare variable $config:address-by-id := true();
 
 (:~
  : Set default language for publisher app i18n
@@ -337,7 +337,7 @@ declare variable $config:context-path :=
 (:~
  : The root of the collection hierarchy containing data.
  :)
-declare variable $config:data-root := "/db/apps/grimm-data/";
+declare variable $config:data-root := "/db/apps/grimm-data";
 
 (:~
  : The root of the collection hierarchy whose files should be displayed
@@ -393,7 +393,7 @@ declare variable $config:default-odd :="grimm.odd";
  : make sure to run modules/generate-pm-config.xql to update the main configuration
  : module for transformations (modules/pm-config.xql).
  :)
-declare variable $config:odd-available :=("grimm.odd", "teipublisher.odd");
+declare variable $config:odd-available := ("grimm.odd", "teipublisher.odd", "static.odd");
 
 (:~
  : List of ODD files which are used internally only, i.e. not for displaying information
@@ -484,26 +484,26 @@ declare variable $config:dts-import-collection := $config:data-default || "/play
  : @param $docUri relative document path (including $collection)
  :)
 declare function config:collection-config($collection as xs:string?, $docUri as xs:string?) {
-    (: Return empty sequence to use default config :)
+    (: Return empty sequence to use default config 
     ()
-
+:)
     (: 
      : Replace line above with the following code to switch between different view configurations per collection.
      : $collection corresponds to the relative collection path (i.e. after $config:data-root). 
      :)
-    (:
+     
+     
+
     switch ($collection)
-        case "playground" return
+        case "static" return
             map {
-                "odd": "dodis.odd",
-                "view": "body",
-                "depth": $config:pagination-depth,
-                "fill": $config:pagination-fill,
-                "template": "facsimile.html"
+                "odd": "static.odd",
+                "view": "single",
+                "template": "view.html"
             }
         default return
             ()
-    :)
+    
 };
 
 (:~
