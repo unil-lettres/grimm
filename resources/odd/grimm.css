@@ -31,16 +31,3 @@ p, .paragraph {
 .metadata-p > span {
     font-weight: bold;
 }
-
-.list .list {
-    margin-left: 3rem;
-}
-
-.list dt {
-    font-weight: bold;
-    margin-right: 1rem;
-}
-
-dt::after {
-    content: ': ';
-}

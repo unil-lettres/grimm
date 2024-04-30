@@ -1,0 +1,46 @@
+#content .content {
+    display:flex;
+    width: 95%;
+    margin: auto;
+}
+
+.toc {
+    position: fixed;
+    width: 18%;
+    margin: 1rem;
+    background-color: var(--pb-toolbar-background-color);
+}
+
+.main-content {
+    margin-left: 22%;
+}
+
+.toc ul {
+    list-style: none;
+    padding: 0 0 0 1rem ;
+    margin: 0;
+}
+
+.list .list {
+    margin-left: 3rem;
+}
+
+.list dt {
+    font-weight: bold;
+    margin-right: 1rem;
+}
+
+dt::after {
+    content: ': ';
+}
+
+a {
+    color: var(--pb-link-color);
+    text-decoration: none;
+    
+}
+
+.toc paper-button:hover {
+    background-color: var(--pb-menubar-background-color);
+    color: var(--pb-menubar-color);
+}

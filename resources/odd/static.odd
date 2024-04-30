@@ -29,7 +29,7 @@
         </fileDesc>
         <encodingDesc>
             <tagsDecl>
-                <rendition source="grimm.css"/>
+                <rendition source="static.css"/>
             </tagsDecl>
         </encodingDesc>
         <revisionDesc>
@@ -43,6 +43,9 @@
            
             <elementSpec ident="div" mode="change">
                     <model predicate="@xml:lang eq $parameters?language" behaviour="block"/>
+                    <model predicate="@xml:lang eq 'en'" behaviour="block">
+            <desc>Present English as default</desc>
+        </model>
                     <model predicate="$parameters?language ne @xml:lang" behaviour="omit"/>
                     <model predicate="@type='title_page'" behaviour="block">
             <outputRendition xml:space="preserve">
