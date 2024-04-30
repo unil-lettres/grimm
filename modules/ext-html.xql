@@ -64,7 +64,9 @@ declare function pmf:create-toc-item($div as node()) {
 declare function pmf:toc($config as map(*), $node as element(), $content as item()*) {
     let $lang := if (string-length($config?parameters?language) eq 5) then substring-before($config?parameters?language, '-')  else $config?parameters?language
     return
-    <aside class="toc"><ul>
+    <pb-drawer id="toc" toggle="tocToggle" class="tocDrawer" position="right">
+        <div class="drawer-content">
+            <ul>
         {for $div in $node/tei:div[@xml:lang eq $lang] return
             <li><a href="#{$div/substring-before(@xml:id, '_')}"><paper-button>{$div/head(tei:head)}</paper-button></a>
                 {if ($div/tei:div) then 
@@ -74,6 +76,7 @@ declare function pmf:toc($config as map(*), $node as element(), $content as item
                 else ()}
             </li>}
     </ul>
-    </aside>
+        </div>
+    </pb-drawer>
     };
 
