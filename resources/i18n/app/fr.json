@@ -1,5 +1,19 @@
 {
     "title": "Les Contes de Grimm",
+    "app": {
+		"pis": "Porteurs",
+		"cite-head": "Comment citer",
+		"cite-content": "Citation en Français",
+		"about-head": "À propos de cette application",
+		"app": "version de l'application : ",
+		"data": "version des données : ",
+		"responsability": "Déclaration de responsabilité",
+		"credits": "Other credits",
+		"developed": "Développé par : ",
+		"powered": "Powered by: ",
+		"license": "Licence"
+	
+},
     "menu": {
         "start": "Start",
         "about": "À propos"

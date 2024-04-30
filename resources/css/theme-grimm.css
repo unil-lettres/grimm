@@ -110,18 +110,13 @@ paper-button[toggles][active] {
             padding: 0;
         }
         
-        .panels .doclist dts-client {
-            padding: 0 20px;
-        }
         
         aside {
             flex: 1;
             display: flex;
             flex-direction: column;
-        }
-        
-        .browse aside {
-            padding: 0 10px;
+            margin-top: 2rem;
+            padding: 0 2rem;
         }
 
         pb-select {
@@ -171,7 +166,7 @@ paper-button[toggles][active] {
         }
         
         .documents a,
-        .documents a:visited {
+        .documents a:visited, .collection a, collection a:visited {
             color: #303F9F;
             text-decoration: none;
         }
@@ -199,6 +194,12 @@ paper-button[toggles][active] {
             border-color: #19232d;
             border-style: groove;
             box-shadow: 1px 1px 1px 1px  #19232d;
+        }
+        
+        .metadata {
+            padding: 2rem;
+            height: fit-content;
+            padding: 2rem;
         }
         
 /* Search page */
@@ -298,7 +299,28 @@ paper-button[toggles][active] {
 footer {
     display:flex;
     justify-content:space-around;
+    background-color: var(--pb-menubar-background-color);
+    color: var(--pb-menubar-color);
+    padding: 1rem;
 }
+
+.publisher-logos, .institutional-logos {
+    display:flex;
+    flex-direction:column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.publisher-logos img {
+    width: 8em;
+    margin: 1rem;
+}
+
+.institutional-logos img {
+    height: 3.5rem;
+    margin: 1rem;
+}
+
 
 /*Drawer*/
 

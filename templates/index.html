@@ -2,45 +2,120 @@
     <head data-template="lib:include" data-template-path="templates/header.html">
         <script data-target="script-preload" src="resources/scripts/browse.js"/>
     </head>
-<body>
-    <pb-page data-template="pages:pb-page" api-version="1.0" unresolved="unresolved" theme="resources/css/components.css" locales="resources/i18n" supported-languages="en,fr">
-        <app-drawer-layout force-narrow="force-narrow">
-            <app-drawer data-template="lib:include" data-template-path="templates/drawer.html"/>
-            <app-header-layout>
-                <app-header slot="header" reveals="reveals" fixed="fixed" effects="waterfall">
-                    <app-toolbar data-template="lib:include" data-template-path="templates/menu.html">
-                        <pb-progress subscribe="search" indeterminate="indeterminate" bottom-item="bottom-item" data-target="menubar-after"/>
-                    </app-toolbar>
-                </app-header>
-                <main class="search-mask">
-                    <section>
-                        <h1 class="tp-title">
+    <body>
+        <pb-page data-template="pages:pb-page" api-version="1.0" unresolved="unresolved" theme="resources/css/components.css" locales="resources/i18n" supported-languages="en,fr">
+            <app-drawer-layout force-narrow="force-narrow">
+                <app-drawer data-template="lib:include" data-template-path="templates/drawer.html"/>
+                <app-header-layout>
+                    <app-header slot="header" reveals="reveals" fixed="fixed" effects="waterfall">
+                        <app-toolbar data-template="lib:include" data-template-path="templates/menu.html">
+                            <pb-progress subscribe="search" indeterminate="indeterminate" bottom-item="bottom-item" data-target="menubar-after"/>
+                        </app-toolbar>
+                    </app-header>
+                    <main class="search-mask">
+                        <section>
+                            <h1 class="tp-title">
                                 <pb-i18n key="title">Grimms’ Fairy Tales</pb-i18n>
                             </h1>
-                    </section>
-                    <section class="panels">
-                        <paper-card class="doclist" elevation="0">
-                            <div class="card-content">
-                                <div class="browse">
-                                    <aside data-template="browse:form">
-                                        <pb-search style="display:none" id="search-form" subscribe="search" data-template="pages:parse-params" value="${query}" subforms=".facets" submit-on-load="submit-on-load">
-                                        </pb-search>
-                                        <pb-custom-form class="facets" url="api/search/facets" event="pb-results-received" subscribe="search" emit="search" use-language="use-language"/>
-                                    </aside>
-                                    <div id="document-list">
-                                        <pb-paginate id="paginate" per-page="10" range="5" subscribe="search" emit="search"/>
-                                        <pb-load url="api/grimm-collection" expand="" emit="search"/>
+                        </section>
+                        <section class="panels">
+                            <paper-card class="doclist" elevation="0">
+                                <div class="card-content">
+                                    <div class="browse">
+                                        <aside data-template="browse:form">
+                                            <pb-search style="display:none" id="search-form" subscribe="search" data-template="pages:parse-params" value="${query}" subforms=".facets" submit-on-load="submit-on-load"> </pb-search>
+                                            <pb-custom-form class="facets" url="api/search/facets" event="pb-results-received" subscribe="search" emit="search" use-language="use-language"/>
+                                        </aside>
+                                        <div id="document-list">
+                                            <pb-paginate id="paginate" per-page="10" range="5" subscribe="search" emit="search"/>
+                                            <pb-load url="api/grimm-collection" expand="" emit="search"/>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </paper-card>
-                    </section>
-                </main>
-            </app-header-layout>
-            <footer data-template="templates:include" data-template-path="templates/footer.html"/>
-        </app-drawer-layout>
-    </pb-page>
-    <div class="splash"/>
-</body>
+                            </paper-card>
+                            <paper-card class="metadata">
+                                <h2>Grimm Tradalign</h2>
+                                <h3>Projet ANR-15-IDEX-02</h3>
+                                <pb-collapse>
+                                    <div slot="collapse-trigger">
+                                        <h3>
+                                            <pb-i18n key="app.pis">Principal investigators</pb-i18n>
+                                        </h3>
+                                    </div>
+                                    <div slot="collapse-content">
+                                        <ul>
+                                            <li>Natacha RIMASSON-FERTIN (UGA, ILCEA4/CERAAC)</li>
+                                            <li>Cyrille FRANÇOIS (UNIL)</li>
+                                            <li>Olivier KRAIF (UGA, LIDILEM)</li>
+                                            <li>Pascale ROUX (Lyon 2, ex. UGA Litt&amp;Arts)</li>
+                                        </ul>
+                                    </div>
+                                </pb-collapse>
+                                <pb-collapse>
+                                    <div slot="collapse-trigger">
+                                        <h3>
+                                            <pb-i18n key="app.cite-head">How to cite</pb-i18n>
+                                        </h3>
+                                    </div>
+                                    <div slot="collapse-content">
+                                        <p>
+                                            <pb-i18n key="app.citation-content">Placeholder</pb-i18n>
+                                        </p>
+                                    </div>
+                                </pb-collapse>
+                                <pb-collapse>
+                                    <div slot="collapse-trigger">
+                                        <h3>
+                                            <pb-i18n key="app.about-head">About this app</pb-i18n>
+                                        </h3>
+                                    </div>
+                                    <div slot="collapse-content">
+                                        <ul>
+                                            <li>
+                                                <pb-i18n key="app.app"/>
+                                                <span data-template="pages:version"/>
+                                            </li>
+                                            <li>
+                                                <pb-i18n key="app.data"/>
+                                                <span data-template="pages:version"/>
+                                            </li>
+                                        </ul>
+                                        <h4>
+                                            <pb-i18n key="app.responsability">Responsibility
+                                                statement</pb-i18n>
+                                        </h4>
+                                        <p>Placeholder</p>
+                                        <h4>
+                                            <pb-i18n key="app.credits">Credits</pb-i18n>
+                                        </h4>
+                                        <ul>
+                                            <li>
+                                                <pb-i18n key="app.developed">Developed by</pb-i18n>
+                                                <a href="https://jinntec.de/" target="_blank">Jinntec GmbH</a>
+                                            </li>
+                                            <li>
+                                                <pb-i18n key="app.powered">Powered by</pb-i18n>
+                                                <a href="https://jinntec.de/" target="_blank">TEI
+                                                  Publisher</a> &amp; <a href="https://www.e-editiones.org/" target="_blank">e-editiones</a>
+                                            </li>
+                                            <li>
+                                                <a href="about#images">Images</a>
+                                            </li>
+                                        </ul>
+                                        <h4>
+                                            <pb-i18n key="app.license">License</pb-i18n>
+                                        </h4>
+                                        <p>Placeholder</p>
+                                    </div>
+                                </pb-collapse>
+                            </paper-card>
+                        </section>
+                    </main>
+                </app-header-layout>
+                <footer data-template="templates:include" data-template-path="templates/footer.html"/>
+            </app-drawer-layout>
+        </pb-page>
+        <div class="splash"/>
+    </body>
 
 </html>

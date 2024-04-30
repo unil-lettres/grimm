@@ -1,5 +1,20 @@
 {	"title": "Grimms’ Fairy Tales",
 
+"app": {
+	"pis": "Principal investigators",
+	"cite-head": "How to cite",
+	"cite-content": "Placeholder for citation in English",
+	"about-head": "About this app",
+	"app": "app version: ",
+	"data": "data version: ",
+	"responsability": "Responsibility statement",
+	"credits": "Other credits",
+	"developed": "Developed by: ",
+	"powered": "Powered by: ",
+	"license": "License"
+	
+},
+
 	"menu": {
 		"start": "Start",
 		"about": "About"
