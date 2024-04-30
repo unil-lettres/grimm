@@ -202,6 +202,11 @@ paper-button[toggles][active] {
             padding: 2rem;
         }
         
+        .metadata a {
+            color: var(--pb-link-color);
+            text-decoration: none;
+        }
+        
 /* Search page */
 
 .search-page {
