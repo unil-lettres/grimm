@@ -42,8 +42,8 @@
                           
            
             <elementSpec ident="div" mode="change">
-                    <model predicate="@xml:lang eq $parameters?language" behaviour="block"/>
-                    <model predicate="not($parameters?language) and @xml:lang eq 'en'" behaviour="block">
+                    <model predicate="if (string-length($parameters?language) eq 5 and substring-before($parameters?language, '-') eq @xml:lang) then true() else if (@xml:lang eq $parameters?language) then true() else false()" behaviour="block"/>
+                    <model predicate="if (not(ancestor::body/descendant::div/@xml:lang = $parameters?language) and @xml:lang eq 'en') then true() else false()" behaviour="block">
             <desc>Present English as default</desc>
         </model>
                     <model predicate="$parameters?language ne @xml:lang" behaviour="omit"/>

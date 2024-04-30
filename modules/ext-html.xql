@@ -62,7 +62,7 @@ declare function pmf:create-toc-item($div as node()) {
     };
     
 declare function pmf:toc($config as map(*), $node as element(), $content as item()*) {
-    let $lang := $config?parameters?language
+    let $lang := if (string-length($config?parameters?language) eq 5) then substring-before($config?parameters?language, '-')  else $config?parameters?language
     return
     <aside class="toc"><ul>
         {for $div in $node/tei:div[@xml:lang eq $lang] return
