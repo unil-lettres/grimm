@@ -105,8 +105,8 @@ declare function api:variants($request as map(*)) {
         let $year := $fileNameComponents[2]
         return
             <li>
-                <input type="checkbox" name="panel" value="{$pos - 1}"/>
-                {$type} – {$year} – {$author} – {$title}
+                <paper-checkbox name="panel" value="{$pos - 1}">
+                {$type} – {$year} – {$author} – {$title}</paper-checkbox>
             </li>
     }
     </ul>
