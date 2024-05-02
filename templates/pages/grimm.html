@@ -15,11 +15,11 @@
                 </app-header>
                 <pb-drawer toggle="tocToggle" class="toc" emit="toc" subscribe="transcription">
                     <div class="drawer-content">
-                        <pb-custom-form class="facets" url="api/search/facets" event="pb-results-received" subscribe="panels" emit="panels"/>
                         <pb-load id="toc" url="api/variants/{doc}" expand="expand" src="document1" 
                             subscribe="toc" emit="panels" load-once="load-once"><pb-i18n key="dialogs.loading">Loading</pb-i18n></pb-load>
                     </div>
                 </pb-drawer>
+                <div class="content-body">
                 <section class="title">
                     <pb-collapse>
                         <div slot="collapse-trigger">
@@ -32,6 +32,7 @@
                 </section>
                 <main class="edition" data-template="app:create-panels">
                 </main>
+                </div>
             </app-header-layout>
         </app-drawer-layout>
     </pb-page>

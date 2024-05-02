@@ -360,7 +360,8 @@ footer {
     display: block;
 }
 
-.toc .drawer-content {
-    display: flex;
-    column-gap: 3rem;
+.content-body {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    height: calc(100vh - 128px);
 }
