@@ -1,8 +1,3 @@
-body {
-    --pb-grid-highlight-color: var(--pb-color-inverse);
-    --pb-drawer-width: 640px;
-}
-
 app-header-layout {
     min-height: 95vh;
 }

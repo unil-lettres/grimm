@@ -48,7 +48,8 @@ body {
     --pb-annotation-stripes-light: #e0e0ef;
     --pb-annotation-stripes-dark: #50505f;
     --pb-annotation-selection: #f9ea7643;
-    --pb-drawer-background-color: var(--pb-color-inverse);
+    --pb-drawer-background-color: var(--pb-toolbar-background-color);
+    --pb-drawer-width: 30em;
     --pb-menubar-background-color: #124712;
     --pb-menubar-color: white;
     --pb-toolbar-background-color: #d1dae0;
@@ -70,8 +71,10 @@ body {
     --pb-link-color: #8D5270;
     --pb-link-font-family: var(--pb-serif-font-family);
     --pb-highlight-color: #EEE8AA;
+    --pb-grid-highlight-color: var(--pb-color-inverse);
     --highlight-closest-color: var(--pb-color-inverse);
     --paper-input-container-focus-color: var(--pb-color-focus);
+    --paper-checkbox-checked-color: var(--pb-menubar-background-color);
     font: var(--pb-base-font);
     color: var(--pb-color-primary);
     margin: 0;
