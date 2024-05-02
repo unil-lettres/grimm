@@ -13,7 +13,7 @@
                     <app-toolbar data-template="lib:include" data-template-path="templates/menu.html"/>
                     <app-toolbar data-template="lib:include" data-template-path="templates/toolbar.html"/>
                 </app-header>
-                <pb-drawer toggle="tocToggle" class="toc" emit="toc" subscribe="transcription">
+                <pb-drawer toggle="tocToggle" class="toc" emit="toc" subscribe="toc">
                     <div class="drawer-content">
                         <pb-load id="toc" url="api/variants/{doc}" expand="expand" src="document1" 
                             subscribe="toc" emit="panels" load-once="load-once"><pb-i18n key="dialogs.loading">Loading</pb-i18n></pb-load>
