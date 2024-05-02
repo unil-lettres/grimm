@@ -1,4 +1,4 @@
-window.addEventListener("WebComponentsReady", () => {
+window.addEventListener("load", () => {
     
     const buttonScroll = document.getElementById('scroll');
     const buttonClick = document.getElementById('click');
@@ -35,6 +35,24 @@ window.addEventListener("WebComponentsReady", () => {
     pbEvents.subscribe('pb-highlight-off', null, (ev) => {
          clearHighlights();
         });
+    
+    pbEvents.subscribe('pb-end-update', 'panels', () => {
+        const grid = document.querySelector('pb-grid');
+        document.querySelectorAll('#toc [name="panel"]')
+        .forEach((input) => {
+            const panel = parseInt(input.value);
+            if (grid.panels.indexOf(panel) !== -1) {
+                input.checked = true;
+            }
+            input.addEventListener('change', () => {
+                if (input.checked) {
+                    grid.addPanel(panel);
+                } else {
+                    grid.removePanel(panel);
+                }
+            });
+        });
+    });
 });
 
 function disablePanels() {

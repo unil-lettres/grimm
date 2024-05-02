@@ -1,6 +1,7 @@
 <html>
     <head data-template="lib:include" data-template-path="templates/header.html">
         <script data-target="script-preload" src="resources/scripts/edition.js"/>
+        <script data-target="script-preload" src="resources/scripts/browse.js"/>
     </head>
 <body>
     <pb-page data-template="pages:pb-page" unresolved="unresolved" theme="resources/css/components.css" locales="resources/i18n" supported-languages="en,fr">
@@ -12,6 +13,13 @@
                     <app-toolbar data-template="lib:include" data-template-path="templates/menu.html"/>
                     <app-toolbar data-template="lib:include" data-template-path="templates/toolbar.html"/>
                 </app-header>
+                <pb-drawer toggle="tocToggle" class="toc" emit="toc" subscribe="transcription">
+                    <div class="drawer-content">
+                        <pb-custom-form class="facets" url="api/search/facets" event="pb-results-received" subscribe="panels" emit="panels"/>
+                        <pb-load id="toc" url="api/variants/{doc}" expand="expand" src="document1" 
+                            subscribe="toc" emit="panels" load-once="load-once"><pb-i18n key="dialogs.loading">Loading</pb-i18n></pb-load>
+                    </div>
+                </pb-drawer>
                 <section class="title">
                     <pb-collapse>
                         <div slot="collapse-trigger">

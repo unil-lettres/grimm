@@ -1,3 +1,8 @@
+body {
+    --pb-grid-highlight-color: var(--pb-color-inverse);
+    --pb-drawer-width: 640px;
+}
+
 app-header-layout {
     min-height: 95vh;
 }
@@ -353,4 +358,9 @@ footer {
 
 .drawer-content paper-button {
     display: block;
+}
+
+.toc .drawer-content {
+    display: flex;
+    column-gap: 3rem;
 }

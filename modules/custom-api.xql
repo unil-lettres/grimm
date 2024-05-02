@@ -91,3 +91,23 @@ declare function api:metadata($request as map(*)) {
         $metadata
     };
 
+declare function api:variants($request as map(*)) {
+    <ul id="variants">
+    {
+        let $id := xmldb:decode-uri($request?parameters?id)
+        let $docsToDisplay := app:get-sorted-documents($id)
+        for $doc at $pos in $docsToDisplay
+        let $fileNameComponents := tokenize(substring-before(util:document-name($doc), '.xml'), '_')
+        let $language := $fileNameComponents[4] => upper-case()
+        let $type := if ($doc/substring(@corresp, 2) = $doc/@xml:id/string()) then 'Source' else $language
+        let $title := $doc//tei:titleStmt/tei:title/string()
+        let $author := $fileNameComponents[3]
+        let $year := $fileNameComponents[2]
+        return
+            <li>
+                <input type="checkbox" name="panel" value="{$pos - 1}"/>
+                {$type} – {$year} – {$author} – {$title}
+            </li>
+    }
+    </ul>
+};

@@ -53,7 +53,7 @@ declare
     return
         <pb-grid id="grid" panels="[0]" emit="transcription" subscribe="transcription">
             <template>
-                <pb-panel emit="transcription" subscribe="transcription">
+                <pb-panel emit="transcription" subscribe="transcription" draggable="">
                     <paper-button toggles="true" class="disable" slot="toolbar" onchange="disableSync(this)">
                         <img src="resources/images/disable-sync.svg" title="Disable sync" alt="disable sync icon" style="height:2rem"/>
                         </paper-button>
