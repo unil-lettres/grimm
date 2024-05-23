@@ -67,8 +67,12 @@ jobs:
       - name: Run smoke test
         run: bats --tap tests/*.bats
 
-    #   - name: Run Integration Tests  
-    #     run: npm run cypress
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+        # with:
+        #   config: baseUrl=https://stabikat.de/search/
+        #   env: grepUntagged=true
+        #   browser: firefox
 
   # release:
   #   name: Release
