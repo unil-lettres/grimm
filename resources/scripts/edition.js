@@ -157,11 +157,11 @@ function closestMatch(key) {
 };
 
 function clearHighlights() {
-    var spans = document.querySelectorAll('[data-ref],.no-match');
+    var spans = document.querySelectorAll('[data-ref],.noMatch');
     spans.forEach(span => {
         span.style.backgroundColor = 'inherit'
     });
-    var unalignedSegments = document.querySelectorAll('.no-match');
+    var unalignedSegments = document.querySelectorAll('.noMatch');
     unalignedSegments.forEach(segment => {
         segment.classList.add('hide');
         })

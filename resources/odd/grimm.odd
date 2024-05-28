@@ -171,7 +171,7 @@
             </model>
             <model behaviour="pass-through">
                 <param name="key" value="if (@corresp) then @corresp else @xml:id"/>
-                <pb:template xmlns="" xml:space="preserve"><span class="no-match hide" data-key="[[key]]">[  ]</span> </pb:template>
+                <pb:template xmlns="" xml:space="preserve"><span class="noMatch hide" data-key="[[key]]">[  ]</span> </pb:template>
             </model>
         </modelSequence>
                 </elementSpec>
@@ -188,9 +188,11 @@
             
             
             
+            
             padding-right: 1em;
 height: 75vh;
 overflow-y: auto;
+            
             
             
             
