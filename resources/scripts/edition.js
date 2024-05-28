@@ -11,6 +11,9 @@ window.addEventListener("load", () => {
     buttonScroll.addEventListener('change', scrollSync, false);
     buttonClick.addEventListener('change', clickSync, false);
     
+    // Click scroll button as default
+    buttonScroll.click();
+    
     /* If a panel is added or changed, click on the sync buttons
      to enable the appropriate elements in the new panel */
     pbEvents.subscribe("pb-panel", 'transcription', (ev) => {
