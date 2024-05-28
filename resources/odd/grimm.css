@@ -31,3 +31,7 @@ p, .paragraph {
 .metadata-p > span {
     font-weight: bold;
 }
+
+.unaligned {
+    color: darkblue;
+}

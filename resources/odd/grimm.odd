@@ -155,11 +155,7 @@
                     <model predicate="not(@n)" behaviour="omit" useSourceRendition="true"/>
                 </elementSpec>
                 <elementSpec ident="seg" mode="change">
-                    <model predicate="not(@corresp) and not(@type)" behaviour="inline">
-            <outputRendition xml:space="preserve">
-            color: gray;
-            </outputRendition>
-        </model>
+                    <model predicate="not(@corresp) and not(@type)" behaviour="inline" cssClass="unaligned"/>
                     <modelSequence predicate="@corresp or (@type eq 'base')">
             <model behaviour="pass-through">
                 <desc>Creates span elements for sync on click</desc>
@@ -186,9 +182,11 @@
             
             
             
+            
             padding-right: 1em;
 height: 75vh;
 overflow-y: auto;
+            
             
             
             
