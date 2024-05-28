@@ -169,6 +169,10 @@
                 <param name="key" value="if (@corresp) then @corresp else @xml:id"/>
                 <pb:template xmlns="" xml:space="preserve"><pb-highlight highlight-self="true" key="[[key]]" scroll="true" disabled="true">[[content]]</pb-highlight></pb:template>
             </model>
+            <model behaviour="pass-through">
+                <param name="key" value="if (@corresp) then @corresp else @xml:id"/>
+                <pb:template xmlns="" xml:space="preserve"><span class="no-match hide" data-key="[[key]]">[  ]</span> </pb:template>
+            </model>
         </modelSequence>
                 </elementSpec>
             <elementSpec ident="body" mode="change">
@@ -183,9 +187,11 @@
             
             
             
+            
             padding-right: 1em;
 height: 75vh;
 overflow-y: auto;
+            
             
             
             

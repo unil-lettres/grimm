@@ -35,3 +35,7 @@ p, .paragraph {
 .unaligned {
     color: darkblue;
 }
+
+.no-match {
+    margin-right: 1em;
+}

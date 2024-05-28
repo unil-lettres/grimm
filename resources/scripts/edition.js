@@ -33,7 +33,7 @@ window.addEventListener("load", () => {
     then clean it off */
     pbEvents.subscribe('pb-highlight-on', null, (ev) => {
         var key = ev.detail.id;
-        closestMatch(key, 'scroll');
+        closestMatch(key);
         });
     pbEvents.subscribe('pb-highlight-off', null, (ev) => {
          clearHighlights();
@@ -127,51 +127,44 @@ function highlightSeg(seg) {
             block: "center", behavior: "instant"
         })
     })
-    closestMatch(key, 'click');
+    closestMatch(key);
 };
 
-/*When there is no exact match, hightlight in a different color the closest one
-Modes could be merged into one */
-function closestMatch(key, mode) {
+/*When there is no exact match, show square brackets at closest position*/
+function closestMatch(key) {
     const source = key.split("_").pop();
     var panels = document.querySelectorAll('pb-panel');
     panels.forEach(panel => {
         const values = []
-        const spans = panel.querySelectorAll('*[data-ref]');
+        const spans = panel.querySelectorAll('*[data-key]');
         spans.forEach(span => {
-            var ref = span.dataset.ref
+            var ref = span.dataset.key
             values.push(ref.split("_").pop())
             });
         if (values.includes(source) == false) {
             const closest = values.reduce((a, b) => {
                 return Math.abs(b - source) < Math.abs(a - source) ? b : a;
                 });
-            switch (mode) {
-                case 'scroll':
-                    var highlights = panel.querySelectorAll('pb-highlight');
-                    highlights.forEach(pb => {
-                        if (pb.disabled == false && pb.getAttribute('key').split("_").pop() == closest) {
-                        pb.style.backgroundColor = 'var(--highlight-closest-color)';
-                        pb.classList.add('closeMatch')
-                        } });
-                    break;
-                default: 
-                    spans.forEach(span => {
-                    if (span.dataset.ref.split("_").pop() == closest) {
-                        span.style.backgroundColor = 'var(--highlight-closest-color)';
-                        span.scrollIntoView({block: "center", behavior: "instant"})
-                        }
-                    })
-            }
-          }
-        })
-    };
+            spans.forEach(span => {
+                if (span.dataset.key.split("_").pop() == closest) {
+                    span.classList.remove('hide');
+                    span.style.backgroundColor = 'var(--pb-highlight-color)';
+                    span.scrollIntoView({block: "center", behavior: "instant"})
+                    }
+            })
+        }
+    })
+};
 
 function clearHighlights() {
-    var spans = document.querySelectorAll('[data-ref], .closeMatch');
+    var spans = document.querySelectorAll('[data-ref],.no-match');
     spans.forEach(span => {
         span.style.backgroundColor = 'inherit'
-    })
+    });
+    var unalignedSegments = document.querySelectorAll('.no-match');
+    unalignedSegments.forEach(segment => {
+        segment.classList.add('hide');
+        })
 };
 
 // Disable sync for a specific panel
