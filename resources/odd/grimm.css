@@ -21,7 +21,7 @@ p, .paragraph {
 }
 
 .hide {
-    display:none;
+    display:none !important;
 }
 
 .syncSpan {
@@ -38,4 +38,9 @@ p, .paragraph {
 
 .noMatch {
     margin-right: 1em;
+}
+
+.formulette {
+    margin-left: 3em;
+    display: inline-block;
 }

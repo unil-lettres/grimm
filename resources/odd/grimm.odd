@@ -161,13 +161,15 @@
                 <desc>Creates span elements for sync on click</desc>
                 <param name="content" value="."/>
                 <param name="key" value="if (@corresp) then @corresp else @xml:id"/>
-                <pb:template xmlns="" xml:space="preserve"><span class="syncSpan hide" data-ref="[[key]]" onclick="highlightSeg(this)">[[content]]</span></pb:template>
+                <param name="type" value="if (@type) then ' ' || @rend else ()"/>
+                <pb:template xmlns="" xml:space="preserve"><span class="syncSpan hide[[type]]" data-ref="[[key]]" onclick="highlightSeg(this)">[[content]]</span></pb:template>
             </model>
             <model behaviour="pass-through" useSourceRendition="true">
                 <desc>Creates pb-highlight elements</desc>
                 <param name="content" value="."/>
                 <param name="key" value="if (@corresp) then @corresp else @xml:id"/>
-                <pb:template xmlns="" xml:space="preserve"><pb-highlight highlight-self="true" key="[[key]]" scroll="true" disabled="true">[[content]]</pb-highlight></pb:template>
+                <param name="type" value="if (@rend) then @rend else ()"/>
+                <pb:template xmlns="" xml:space="preserve"><pb-highlight highlight-self="true" key="[[key]]" scroll="true" disabled="true" class="[[type]]">[[content]]</pb-highlight></pb:template>
             </model>
             <model behaviour="pass-through">
                 <param name="key" value="if (@corresp) then @corresp else @xml:id"/>
@@ -189,9 +191,11 @@
             
             
             
+            
             padding-right: 1em;
 height: 75vh;
 overflow-y: auto;
+            
             
             
             
@@ -254,6 +258,13 @@ overflow-y: auto;
                 </elementSpec>
                 <elementSpec ident="s" mode="add">
                     <model predicate="@type eq 'nextParagraph'" behaviour="inline" cssClass="nextParagraph"/>
+                </elementSpec>
+            <elementSpec ident="lb" mode="change">
+                    <model predicate="position() = 1" behaviour="omit"/>
+                    <model behaviour="break" useSourceRendition="true">
+            <param name="type" value="'line'"/>
+            <param name="label" value="@n"/>
+        </model>
                 </elementSpec>
             </schemaSpec>
         </body>
