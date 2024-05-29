@@ -345,13 +345,15 @@ declare variable $config:data-root := "/db/apps/grimm-data";
  :)
 declare variable $config:data-default := $config:data-root || '/data';
 
+declare variable $config:data-source := $config:data-root || '/source';
+
 (:~
  : A sequence of root elements which should be excluded from the list of
  : documents displayed in the browsing view.
  :)
 declare variable $config:data-exclude :=
     doc($config:data-root || "/taxonomy.xml")//tei:text,
-    collection($config:register-root)//tei:text
+    collection($config:register-root)//tei:text, collection($config:data-source)//tei:text
 ;
 
 (:~

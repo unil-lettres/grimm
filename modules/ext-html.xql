@@ -13,11 +13,11 @@ declare function pmf:available-languages($tale as xs:string) {
 };
 
 declare function pmf:get-source($tale as xs:string) {
-    let $source := collection($config:data-root)//tei:TEI[@xml:id/string() = $tale]
+    let $source := collection($config:data-default)//tei:TEI[@xml:id/string() = $tale]
     return $source};
 
 declare function pmf:get-versions($tale as xs:string) {
-    collection($config:data-root)//tei:TEI[@corresp eq '#' || $tale][not(@xml:id/string = $tale)]
+    collection($config:data-default)//tei:TEI[@corresp eq '#' || $tale][not(@xml:id/string = $tale)]
     };
 
 declare function pmf:get-tale-id($root as node()) as xs:string {

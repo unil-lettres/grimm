@@ -17,7 +17,6 @@ import module namespace ext-html="https://teipublisher.com/apps/grimm/custom" at
 
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
-declare variable $app:xsl := doc('../resources/xslt/create-segs.xsl');
 
 declare
     %templates:wrap
@@ -30,7 +29,7 @@ declare
 function app:list-texts($node as node(), $model as map(*), $root as xs:string?) {
     for $hits in $model?all
     group by $tale := ft:field($hits, "tale")
-    let $baseText := collection($config:data-root)/id($tale)
+    let $baseText := collection($config:data-default)/id($tale)
     return
         <div class="tale">
             {$pm-config:web-transform($baseText//tei:titleStmt, map { "root": $baseText, "doc": config:get-identifier($baseText), "tale": $tale, "view": "tale" }, $config:default-odd)}
@@ -70,11 +69,10 @@ declare
                     let $title := $doc//tei:titleStmt/tei:title/string()
                     let $author := $fileNameComponents[3]
                     let $year := $fileNameComponents[2]
-                    let $docWithSegs := transform:transform($doc, $app:xsl, ())
                     let $contents := $pm-config:web-transform(
-                            $docWithSegs,
+                            $doc,
                             map { 
-                                "root": $docWithSegs//tei:body, 
+                                "root": $doc, 
                                 "view": "single", 
                                 "header": "document", 
                                 "webcomponents": 7},
@@ -91,7 +89,7 @@ declare
 
 declare %templates:wrap function app:tale-title($node as node(), $model as map(*)) {
     let $id := $model?doc
-    let $source :=  collection($config:data-root)/id($id)
+    let $source :=  collection($config:data-default)/id($id)
     let $title := $source/descendant::tei:titleStmt/tei:title/string() 
     return
        $title
