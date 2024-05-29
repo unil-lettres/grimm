@@ -48,7 +48,7 @@ declare function pmf:get-title($title as node(), $tale as xs:string) {
     
 declare function pmf:get-thumbnail($tale as xs:string) {
     let $siglum := substring-before($tale, '_')
-    let $link := $config:context-path || '/resources/images/' || $siglum || '.png'
+    let $link := $config:context-path || '/resources/images/stories/' || $siglum || '.png'
     return 
         $link
 };
