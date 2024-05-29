@@ -548,8 +548,10 @@ declare function config:document-type($div as element()) {
 };
 
 declare function config:get-document($idOrName as xs:string) {
-    if ($config:address-by-id) then
-        root(collection($config:data-root)/id($idOrName))
+    if ($config:address-by-id and starts-with($idOrName, 'KHM')) then
+        root(collection($config:data-default)/id($idOrName)) 
+    else if ($config:address-by-id) then 
+        root(collection($config:data-root)/id($idOrName)) 
     else if (starts-with($idOrName, '/')) then
         doc(xmldb:encode-uri($idOrName))
     else
