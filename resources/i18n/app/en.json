@@ -37,6 +37,10 @@
                  "la" : "Latin",
                  "fr" : "Français",
                  "en" : "Anglais"
+   },
+   "search": {
+   	"placeholder": "Search complete corpus",
+   	"text": "Search within the story"
    }
 	
 }

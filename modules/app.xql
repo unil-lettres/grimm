@@ -96,3 +96,12 @@ declare %templates:wrap function app:tale-title($node as node(), $model as map(*
     return
        $title
     };
+    
+declare  
+%templates:wrap
+function app:load-map($node as node(), $model as map(*)) {
+    let $doc := $model?doc
+    let $tale := collection($config:data-default)/id($doc)/substring(@corresp, 2)
+    return
+        map:merge(($model, map {"tale" : $tale}))
+};

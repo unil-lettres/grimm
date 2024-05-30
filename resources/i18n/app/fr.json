@@ -36,5 +36,9 @@
                  "la" : "Latin",
                  "fr" : "Français",
                  "en" : "Anglais"
+   },
+   "search": {
+   	"placeholder": "Rechercher dans tout le corpus",
+   	"text": "Rechercher dans le conte"
    }
 }

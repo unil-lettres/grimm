@@ -113,11 +113,17 @@ app-toolbar {
     --app-toolbar-font-size: 16px;
 }
 
-app-toolbar pb-search {
+.menubar pb-search {
     --pb-search-label-color: var(--pb-menubar-color);
     --pb-search-input-color: var(--pb-menubar-color);
     --pb-search-focus-color: var(--pb-color-focus);
     padding-left: 20px;
+}
+
+.toolbar pb-search {
+    --pb-search-label-color: var(--pb-menubar-background-color);
+    --pb-search-input-color: var(--pb-menubar-background-color);
+    --pb-search-focus-color: var(--pb-color-focus);
 }
 
 app-toolbar .menuitem {
