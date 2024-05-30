@@ -30,6 +30,8 @@ function app:list-texts($node as node(), $model as map(*), $root as xs:string?) 
     for $hits in $model?all
     group by $tale := ft:field($hits, "tale")
     let $baseText := collection($config:data-default)/id($tale)
+    let $number := $tale => substring-before('_') => replace('KHM', '') => number() => format-number('0000')
+    order by $number
     return
         <div class="tale">
             {$pm-config:web-transform($baseText//tei:titleStmt, map { "root": $baseText, "doc": config:get-identifier($baseText), "tale": $tale, "view": "tale" }, $config:default-odd)}
@@ -73,7 +75,7 @@ declare
                             $doc,
                             map { 
                                 "root": $doc, 
-                                "view": "single", 
+                                "view": "versions", 
                                 "header": "document", 
                                 "webcomponents": 7},
                                 'grimm.odd')
