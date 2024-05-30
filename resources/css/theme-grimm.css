@@ -358,5 +358,4 @@ footer {
 .content-body {
     display: grid;
     grid-template-rows: auto 1fr;
-    height: calc(100vh - 128px);
 }
