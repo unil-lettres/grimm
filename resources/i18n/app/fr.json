@@ -21,6 +21,7 @@
     "facets": {
         "translator": "Traducteur·rice",
         "century": "Siècle",
+        "title": "Titre",
         "show": "Afficher tout"
     },
     "edition": {
@@ -28,5 +29,12 @@
         "versions": "Versions disponibles",
         "translator": "Traducteur·rice",
         "translators": "Traducteur·rice·s"
-    }
+    },
+   "languages": {
+   "de" : "Allemand",
+                 "es" : "Espagnol",
+                 "la" : "Latin",
+                 "fr" : "Français",
+                 "en" : "Anglais"
+   }
 }

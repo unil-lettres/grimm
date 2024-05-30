@@ -22,6 +22,7 @@
     "facets": {
     	"translator": "Translator",
     	"century": "Century",
+    	"title": "Title",
     	"show": "Show all"
     },
     "edition": {
@@ -29,6 +30,13 @@
     	"versions": "Available versions",
     	"translator": "Translator",
     	"translators": "Translators"
-}
+},
+   "languages": {
+   "de" : "Allemand",
+                 "es" : "Espagnol",
+                 "la" : "Latin",
+                 "fr" : "Français",
+                 "en" : "Anglais"
+   }
 	
 }

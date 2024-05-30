@@ -122,24 +122,25 @@ declare variable $config:pagination-fill := 5;
  :)
 declare variable $config:facets := [
     map {
+        "dimension": "title",
+        "heading": "facets.title",
+        "source": "api/search/facets/title", 
+        "max": 5,
+        "hierarchical": false()
+    },
+    map {
         "dimension": "language",
         "heading": "facets.language",
         "max": 5,
         "hierarchical": false(),
         "output": function($label) {
-            switch($label)
-                case "de" return "German"
-                case "es" return "Spanish"
-                case "la" return "Latin"
-                case "fr" return "French"
-                case "en" return "English"
-                default return $label
+            <pb-i18n key="languages.{$label}">{$label}</pb-i18n>
         }
-    },
+    }, 
     map {
         "dimension": "translator",
         "heading": "facets.translator",
-       (:  : "source": "api/search/facets/translator", :)
+        "source": "api/search/facets/translator", 
         "max": 5,
         "hierarchical": false()
     },
