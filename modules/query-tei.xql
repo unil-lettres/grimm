@@ -35,23 +35,23 @@ declare function teis:query-default($fields as xs:string+, $query as xs:string, 
                     if (exists($target-texts)) then
                         for $text in $target-texts
                         return
-                            $config:data-root ! doc(. || "/" || $text)//tei:head[ft:query(., $query, query:options($sortBy))]
+                            $config:data-default ! doc(. || "/" || $text)//tei:head[ft:query(., $query, query:options($sortBy))]
                     else
                         collection($config:data-root)//tei:head[ft:query(., $query, query:options($sortBy))]
                 default return
                     if (exists($target-texts)) then
                         for $text in $target-texts
-                        let $divisions := $config:data-root ! doc(. || "/" || $text)//tei:div[ft:query(., $query, query:options($sortBy))]
+                        let $divisions := $config:data-default ! doc(. || "/" || $text)//tei:div[ft:query(., $query, query:options($sortBy))]
                         return
                             if (empty($divisions)) then
-                                $config:data-root ! doc(. || "/" || $text)//tei:text[ft:query(., $query, query:options($sortBy))]
+                                $config:data-default ! doc(. || "/" || $text)//tei:text[ft:query(., $query, query:options($sortBy))]
                             else
                                 $divisions
                     else
-                        let $divisions := collection($config:data-root)//tei:div[ft:query(., $query, query:options($sortBy))]
+                        let $divisions := collection($config:data-default)//tei:div[ft:query(., $query, query:options($sortBy))]
                         return
                             if (empty($divisions)) then
-                                collection($config:data-root)//tei:text[ft:query(., $query, query:options($sortBy))]
+                                collection($config:data-default)//tei:text[ft:query(., $query, query:options($sortBy))]
                             else
                                 $divisions
     else ()
