@@ -155,23 +155,19 @@
                     <model predicate="not(@n)" behaviour="omit" useSourceRendition="true"/>
                 </elementSpec>
                 <elementSpec ident="seg" mode="change">
-                    <model predicate="not(@corresp) and not(@type)" behaviour="inline" cssClass="unaligned"/>
+                    <model predicate="not(@corresp) and not(@type)" behaviour="inline" cssClass="unaligned">
+            <desc>Adds “unaligned” class for segments that are an addition in one of the versions</desc>
+        </model>
                     <modelSequence predicate="@corresp or (@type eq 'base')">
             <model behaviour="pass-through">
-                <desc>Creates span elements for sync on click</desc>
+                <desc>Creates span elements for sync</desc>
                 <param name="content" value="."/>
                 <param name="key" value="if (@corresp) then @corresp else @xml:id"/>
-                <param name="type" value="if (@type) then ' ' || @rend else ()"/>
-                <pb:template xmlns="" xml:space="preserve"><span class="syncSpan hide[[type]]" data-ref="[[key]]" onclick="highlightSeg(this)">[[content]]</span></pb:template>
-            </model>
-            <model behaviour="pass-through" useSourceRendition="true">
-                <desc>Creates pb-highlight elements</desc>
-                <param name="content" value="."/>
-                <param name="key" value="if (@corresp) then @corresp else @xml:id"/>
-                <param name="type" value="if (@rend) then @rend else ()"/>
-                <pb:template xmlns="" xml:space="preserve"><pb-highlight highlight-self="true" key="[[key]]" scroll="true" disabled="true" class="[[type]]">[[content]]</pb-highlight></pb:template>
+                <param name="type" value="if (@rend) then ' ' || @rend else ()"/>
+                <pb:template xmlns="" xml:space="preserve"><span class="[[key]][[type]]" data-ref="[[key]]">[[content]]</span></pb:template>
             </model>
             <model behaviour="pass-through">
+                <desc>Creates span elements to display when there is no match</desc>
                 <param name="key" value="if (@corresp) then @corresp else @xml:id"/>
                 <pb:template xmlns="" xml:space="preserve"><span class="noMatch hide" data-key="[[key]]">[  ]</span> </pb:template>
             </model>
@@ -192,9 +188,13 @@
             
             
             
+            
+            
             padding-right: 1em;
 height: 75vh;
 overflow-y: auto;
+            
+            
             
             
             

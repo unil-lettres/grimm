@@ -24,7 +24,7 @@ p, .paragraph {
     display:none !important;
 }
 
-.syncSpan {
+[data-ref]:not(.disabled) {
     cursor:pointer;
 }
 
