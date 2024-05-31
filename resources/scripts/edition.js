@@ -7,6 +7,10 @@ window.addEventListener("load", () => {
     buttonScroll.buttonCounterpart = buttonClick;
     buttonClick.buttonCounterpart = buttonScroll;
     
+    // Adds mode parameter to add appropriate event listener to spans
+    buttonScroll.mode = 'mouseover';
+    buttonClick.mode = 'click';
+    
     // Adds event listener to buttons to fire respective functions
     buttonScroll.addEventListener('change', spanSync, false);
     buttonClick.addEventListener('change', spanSync, false);
@@ -56,6 +60,9 @@ function addEvents(mode) {
             var spans = panel.querySelectorAll('*[data-ref]')
             spans.forEach(span => {
                 span.addEventListener(mode, highlightSeg, false);
+                if (mode === 'click') {
+                    span.classList.add('clickable');
+                    }
             })
         });
     }
@@ -68,18 +75,19 @@ function spanSync(evt) {
     // Disable the other button and clear any highlights from previous mode
     disableCounterpart(this, evt.currentTarget.buttonCounterpart);
     clearHighlights();
-    // Add eventlistener to spans based on mode
-    var mode = retrieveSyncMode()
+    // Add eventlistener to spans based on sync mode
     var spans = document.querySelectorAll('*[data-ref]')
     spans.forEach(span => {
-        switch(mode) {
+        switch(evt.currentTarget.mode) {
             case "click":
                 if (this.active) {
                     span.removeEventListener('mouseover', highlightSeg, false);
                     span.addEventListener('click', highlightSeg, false);
+                    span.classList.add('clickable');
                 }
                 else {
                     span.removeEventListener('click', highlightSeg, false);
+                    span.classList.remove('clickable');
                     }
                 break;
             case "mouseover":
@@ -192,10 +200,12 @@ function disableSync(button) {
     spans.forEach(span => {
         if (button.active && mode) {
             span.removeEventListener(mode, highlightSeg, false);
-            span.classList.add('disabled')
+            span.classList.add('disabled');
+            span.classList.remove('clickable')
         } else if (mode) {
             span.addEventListener(mode, highlightSeg, false);
-            span.classList.remove('disabled')
+            span.classList.remove('disabled');
+            span.classList.add('clickable')
             }
     })
 };

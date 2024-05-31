@@ -24,7 +24,7 @@ p, .paragraph {
     display:none !important;
 }
 
-[data-ref]:not(.disabled) {
+.clickable {
     cursor:pointer;
 }
 
