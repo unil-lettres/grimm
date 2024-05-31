@@ -106,6 +106,9 @@ function spanSync(evt) {
 
 function highlightSeg() {
     clearHighlights();
+    identifier = 'id' + Date.now()
+    this.setAttribute('data-identifier', identifier);
+    document.addEventListener('keydown', clickTransfer);
     var refs = this.dataset.ref.match(/\w+/g);
     refs.forEach(ref => {
         var spans = document.querySelectorAll(`span:not(.disabled).${ref}`);    
@@ -164,7 +167,8 @@ function disablePanels() {
 function clearHighlights() {
     var spans = document.querySelectorAll('[data-ref], .noMatch');
     spans.forEach(span => {
-        span.style.backgroundColor = 'inherit'
+        span.style.backgroundColor = 'inherit';
+        span.removeAttribute('data-identifier')
     });
     var unalignedSegments = document.querySelectorAll('.noMatch');
     unalignedSegments.forEach(segment => {
@@ -207,6 +211,29 @@ function disableSync() {
             span.classList.add('clickable')
             }
     })
+};
+
+// Function for arrow navigation
+function clickTransfer(e) {
+    const clickableSpans = document.querySelectorAll('[data-ref]:not(.disabled)')
+    const clickable = [...clickableSpans]
+    const activeEl = document.querySelectorAll('[data-identifier]')[0]
+    const index = clickable.indexOf(activeEl);
+    console.log(index);
+    console.log(activeEl);
+    let nextIndex = 0;
+    if (e.keyCode === 38) {
+        // up arrow
+        e.preventDefault();
+        nextIndex= index > 0 ? index-1 : 0;
+        clickableSpans[nextIndex].click();
+    }
+    else if (e.keyCode === 40) {
+        // down arrow
+        e.preventDefault();
+        nextIndex= index+1 < clickable.length ? index+1 : index;
+        clickableSpans[nextIndex].click();
+    }
 };
 
 // Function to add the content of the metadata button available in the toolbar of each panel
