@@ -222,14 +222,14 @@ function clickTransfer(e) {
     console.log(index);
     console.log(activeEl);
     let nextIndex = 0;
-    if (e.keyCode === 38) {
-        // up arrow
+    if (e.keyCode === 37) {
+        // left arrow
         e.preventDefault();
         nextIndex= index > 0 ? index-1 : 0;
         clickableSpans[nextIndex].click();
     }
-    else if (e.keyCode === 40) {
-        // down arrow
+    else if (e.keyCode === 39) {
+        // right arrow
         e.preventDefault();
         nextIndex= index+1 < clickable.length ? index+1 : index;
         clickableSpans[nextIndex].click();
