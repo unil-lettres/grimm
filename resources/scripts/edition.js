@@ -111,7 +111,7 @@ function closestMatch(key) {
                 refs.forEach(ref => {
                    if (ref.split("_").pop() == closest) {
                         span.classList.remove('hide');
-                        span.style.backgroundColor = 'var(--pb-highlight-color)';
+                        span.style.backgroundColor = 'var(--highlight-closest-color)';
                         span.scrollIntoView({block: "center", behavior: "instant"})
                         }
                     })
