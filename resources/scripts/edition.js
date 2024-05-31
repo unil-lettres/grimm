@@ -31,6 +31,8 @@ window.addEventListener("load", () => {
             });
         });
     });
+
+    /* Adds the appropriate eventListener to spans in added/changed panels */
     pbEvents.subscribe("pb-panel", 'transcription', (ev) => {
         clearHighlights();
         var mode = retrieveSyncMode();
@@ -59,7 +61,9 @@ function addEvents(mode) {
     }
 };
 
-/* Function to sync the spans */
+/* Function to sync the spans when clicking on the buttons (it cleans
+    previous eventListener if the sync mode changed
+) */
 function spanSync(evt) {
     // Disable the other button and clear any highlights from previous mode
     disableCounterpart(this, evt.currentTarget.buttonCounterpart);
