@@ -36,11 +36,12 @@ window.addEventListener("load", () => {
         });
     });
 
-    /* Adds the appropriate eventListener to spans in added/changed panels */
+    /* Adds the appropriate eventListener to spans and to disable button in added/changed panels */
     pbEvents.subscribe("pb-panel", 'transcription', (ev) => {
         clearHighlights();
         var mode = retrieveSyncMode();
         addEvents(mode);
+        disablePanels();
     });
 });
 
@@ -156,10 +157,8 @@ function closestMatch(key) {
 function disablePanels() {
     var disableButtons = document.querySelectorAll('.disable');
     disableButtons.forEach(button => {
-        if (button.active) {
-            disableSync(button);
-        };
-    })
+        button.addEventListener('change', disableSync, false);
+        })
 };
 
 function clearHighlights() {
@@ -186,10 +185,10 @@ function retrieveSyncMode() {
     };
 
 // Disable sync for a specific panel
-function disableSync(button) {
+function disableSync() {
     clearHighlights();
-    var panel = button.parentElement;
-    if (button.active) {
+    var panel = this.parentElement;
+    if (this.active) {
         panel.classList.add('disabled')
         }
     else {
@@ -198,7 +197,7 @@ function disableSync(button) {
     var spans = panel.querySelectorAll('[data-ref], .noMatch');
     var mode = retrieveSyncMode()
     spans.forEach(span => {
-        if (button.active && mode) {
+        if (this.active && mode) {
             span.removeEventListener(mode, highlightSeg, false);
             span.classList.add('disabled');
             span.classList.remove('clickable')

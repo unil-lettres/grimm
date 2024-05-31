@@ -359,3 +359,8 @@ footer {
     display: grid;
     grid-template-rows: auto 1fr;
 }
+
+/*Panels*/
+.disable-button {
+    height:2rem
+}
