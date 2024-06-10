@@ -15,8 +15,8 @@
                 </app-header>
                 <pb-drawer toggle="tocToggle" class="toc" emit="search" subscribe="search">
                     <div class="drawer-content tale-selection">
-                        <pb-custom-form class="facets" url="api/search/facets" event="pb-results-received" subscribe="panels" emit="search" use-language="use-language"/>
-                        <pb-load id="toc" url="api/grimm-tale/{doc}" expand="expand" src="document1" subscribe="search" emit="panels" load-once="load-once">
+                     <pb-custom-form class="facets" url="api/search/facets" event="pb-results-received" subscribe="panels" emit="search" use-language="use-language" submit-on-load="submit-on-load"/>
+                        <pb-load id="toc" url="api/grimm-tale/{doc}" expand="expand" src="document1" subscribe="search" emit="panels">
                             <pb-i18n key="dialogs.loading">Loading</pb-i18n>
                         </pb-load>
                     </div>
