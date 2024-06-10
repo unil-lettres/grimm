@@ -38,12 +38,29 @@ function app:list-texts($node as node(), $model as map(*), $root as xs:string?) 
         </div>
 };
 
+declare function app:get-position($id as xs:string) {
+    let $documents := app:get-sorted-documents($id)
+    let $identifiers := for $x in $documents return config:get-identifier($x)
+    return 
+        index-of($identifiers, $id) - 1
+    };
+
 declare function app:get-sorted-documents($id as xs:string) {
     let $selectedDoc := collection($config:data-default)/id($id)
-    let $documents := collection($config:data-default)//tei:TEI[not(@xml:id/string() = $id)][@corresp = $selectedDoc/@corresp]
+    let $documents := collection($config:data-default)//tei:TEI[@corresp = $selectedDoc/@corresp]
     let $sortedDocuments := for $x in $documents order by $x/descendant::tei:sourceDesc//tei:date return $x
-    let $docsToDisplay := ($selectedDoc, $sortedDocuments)
-    return $docsToDisplay
+    return $sortedDocuments
+    };
+    
+declare function app:create-title($doc) {
+    let $fileNameComponents := tokenize(substring-before(util:document-name($doc), '.xml'), '_')
+    let $language := $fileNameComponents[4] => upper-case()
+    let $type := if ($doc/substring(@corresp, 2) = $doc/@xml:id/string()) then 'Source' else $language
+    let $title := $doc//tei:titleStmt/tei:title/string()
+    let $author := $fileNameComponents[3]
+    let $year := $fileNameComponents[2]
+    return 
+        $type || ' – ' || $year || ' – ' || $title
     };
     
 declare 
@@ -51,8 +68,9 @@ declare
     function app:create-panels($node as node(), $model as map(*)) {
     let $id := $model?doc
     let $docsToDisplay := app:get-sorted-documents($id)
+    let $position := app:get-position($id)
     return
-        <pb-grid id="grid" panels="[0]" emit="transcription" subscribe="transcription">
+        <pb-grid id="grid" panels="[{$position}]" emit="transcription" subscribe="transcription">
             <template>
                 <pb-panel emit="transcription" subscribe="transcription" draggable="">
                     <paper-button toggles="true" class="disable" slot="toolbar">
@@ -64,13 +82,7 @@ declare
                     </pb-grid-action>
                     {
                     for $doc at $pos in $docsToDisplay
-                    let $id := string($doc/@xml:id)
-                    let $fileNameComponents := tokenize(substring-before(util:document-name($doc), '.xml'), '_')
-                    let $language := $fileNameComponents[4] => upper-case()
-                    let $type := if ($doc/substring(@corresp, 2) = $doc/@xml:id/string()) then 'Source' else $language
-                    let $title := $doc//tei:titleStmt/tei:title/string()
-                    let $author := $fileNameComponents[3]
-                    let $year := $fileNameComponents[2]
+                    let $title := app:create-title($doc)
                     let $contents := $pm-config:web-transform(
                             $doc,
                             map { 
@@ -80,7 +92,7 @@ declare
                                 "webcomponents": 7},
                                 'grimm.odd')
                     return
-                        <template title="{$type} – {$year} – {$author} – {$title}">
+                        <template title="{$title}">
                             {$contents}
                         </template>
                         }
@@ -104,4 +116,23 @@ function app:load-map($node as node(), $model as map(*)) {
     let $tale := collection($config:data-default)/id($doc)/substring(@corresp, 2)
     return
         map:merge(($model, map {"tale" : $tale}))
+};
+
+declare
+%templates:wrap
+function app:tales($node as node(), $model as map(*)) {
+        let $work := root($model("work"))/*
+        let $relPath := config:get-identifier($work)
+        let $title := app:create-title($work)
+        let $pos := app:get-position($relPath)
+        return
+            try {
+                <paper-checkbox name="panel" value="{$pos}">
+                    {$title}
+                </paper-checkbox>
+                
+            } catch * {
+                <a href="{$relPath}">{util:document-name($work)}</a>,
+                <p class="error">Failed to output document metadata: {$err:description}</p>
+            }
 };

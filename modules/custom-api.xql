@@ -91,23 +91,33 @@ declare function api:metadata($request as map(*)) {
         $metadata
     };
 
-declare function api:variants($request as map(*)) {
-    <ul id="variants">
-    {
-        let $id := xmldb:decode-uri($request?parameters?id)
-        let $docsToDisplay := app:get-sorted-documents($id)
-        for $doc at $pos in $docsToDisplay
-        let $fileNameComponents := tokenize(substring-before(util:document-name($doc), '.xml'), '_')
-        let $language := $fileNameComponents[4] => upper-case()
-        let $type := if ($doc/substring(@corresp, 2) = $doc/@xml:id/string()) then 'Source' else $language
-        let $title := $doc//tei:titleStmt/tei:title/string()
-        let $author := $fileNameComponents[3]
-        let $year := $fileNameComponents[2]
-        return
-            <li>
-                <paper-checkbox name="panel" value="{$pos - 1}">
-                {$type} – {$year} – {$author} – {$title}</paper-checkbox>
-            </li>
+(: Function based on capi:list. Instead of passing the path of the collection as a parameter,
+ : we pass the ID of one of the versions of the tale, and from there we obtain the collection path :)
+declare function api:tale-selection($request as map(*)) {
+    let $id := xmldb:decode($request?parameters?id)
+    let $doc := collection($config:data-default)/id($id)
+    let $path := substring-after(util:collection-name($doc), $config:data-default)
+    let $params := capi:params2map($path)
+    let $cached := session:get-attribute($config:session-prefix || ".works")
+    let $useCached := capi:use-cache($params, $cached)
+    let $works := capi:list-works($path, if ($useCached) then $cached else (), $params)
+    let $template := $config:app-root || "/templates/tale.html"
+    let $lookup := function($name as xs:string, $arity as xs:int) {
+        try {
+            let $cfun := api:lookup($name, $arity)
+            return
+                if (empty($cfun)) then
+                    function-lookup(xs:QName($name), $arity)
+                else
+                    $cfun
+        } catch * {
+            ()
+        }
     }
-    </ul>
+    let $model := map:merge(($works, map {
+        "app": $config:context-path,
+        "mode": "browse"
+    }))
+    return
+        templates:apply(doc($template), $lookup, $model, tpu:get-template-config($request))
 };
