@@ -31,7 +31,7 @@ declare namespace expath="http://expath.org/ns/pkg";
 declare namespace tei="http://www.tei-c.org/ns/1.0";
 
 declare function app:is-writeable($node as node(), $model as map(*)) {
-    let $path := $config:data-root || "/" || $model?root
+    let $path := if (xmldb:collection-available($config:data-root || "/" || $model?root)) then $config:data-root || "/" || $model?root else  $config:data-default || "/" || $model?root
     let $writable := sm:has-access(xs:anyURI($path), "rw-")
     return
         element { node-name($node) } {
