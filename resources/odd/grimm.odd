@@ -190,9 +190,11 @@
             
             
             
+            
             padding-right: 1em;
 height: 75vh;
 overflow-y: auto;
+            
             
             
             
@@ -223,6 +225,9 @@ overflow-y: auto;
             <model predicate="descendant::sourceDesc/bibl/editor[@role eq 'translator']/text()[1]/matches(., '[A-Za-z]')" behaviour="pass-through">
                 <param name="translators" value="descendant::sourceDesc/bibl/editor[@role eq 'translator']/text()[1]/replace(., '\s+$', '')"/>
                 <pb:template xmlns="" xml:space="preserve"><p class="metadata-p"><span><pb-i18n key="edition.translator">Translator</pb-i18n></span>: [[translators]]</p></pb:template>
+            </model>
+            <model predicate="descendant::sourceDesc/bibl/descendant::note/text()" behaviour="pass-through">
+                <param name="content" value="descendant::sourceDesc/bibl/descendant::note"/>
             </model>
         </modelSequence>
                     <modelSequence predicate="$parameters?header='metadata-all'">
@@ -266,6 +271,13 @@ overflow-y: auto;
             <param name="label" value="@n"/>
         </model>
                 </elementSpec>
+            <elementSpec ident="note" mode="change">
+        <model predicate="parent::editor" behaviour="block"/>
+        <model behaviour="note">
+            <param name="place" value="@place"/>
+            <param name="label" value="@n"/>
+        </model>
+    </elementSpec>
             </schemaSpec>
         </body>
     </text>
