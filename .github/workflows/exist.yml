@@ -9,6 +9,8 @@ on: [push, pull_request]
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      APP_VERSION: ''
     strategy:
        fail-fast: false
        matrix:
@@ -28,6 +30,10 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libxml2-utils bats
+
+      - name: Ensure all XML files are well-formed
+        run: |
+          find . -type f -name '*.xml' -print0 | xargs -0 xmllint -noout
       
       # Build Expath Package 
       - name: Build Expath Package
@@ -37,13 +43,15 @@ jobs:
           java-version: ${{ matrix.java-version }}
       - run: ant
 
-    #   TODO(DP): data package missing
+      # see #3 needs access to private repo so it can:
+      # wget https://github.com/unil-lettres/grimm-data/releases/latest/download/grimm-data.xar -O 003.xar
       - name: Add expath dependencies
         working-directory: build
         run: |
           wget http://exist-db.org/exist/apps/public-repo/public/templating-1.1.0.xar -O 000.xar
           wget https://exist-db.org/exist/apps/public-repo/public/tei-publisher-lib-4.0.0.xar -O 001.xar
           wget https://github.com/eeditiones/roaster/releases/download/v1.8.2/roaster-1.8.2.xar -O 002.xar
+          
       
        # Install
       - name: Start exist-ci containers
@@ -60,41 +68,25 @@ jobs:
           done
 
       # Testing 
-      - name: Ensure all XML files are well-formed
-        run: |
-          find . -type f -name '*.xml' -print0 | xargs -0 xmllint -noout
-
       - name: Run smoke test
         run: bats --tap tests/*.bats
 
       - name: Cypress run
         uses: cypress-io/github-action@v6
-        # with:
-        #   config: baseUrl=https://stabikat.de/search/
-        #   env: grepUntagged=true
-        #   browser: firefox
 
-  # release:
-  #   name: Release
-  #   runs-on: ubuntu-latest
-  #   needs: build
-  #   if: github.ref == 'refs/heads/main'
-  #   steps:
-  #     - name: Checkout
-  #       uses: actions/checkout@v4
-  #       with:
-  #         fetch-depth: 0
-  #     - name: Setup Node.js
-  #       uses: actions/setup-node@v4
-  #       with:
-  #         node-version: 18
-  #         cache: 'npm'
-  #     - name: Install dependencies
-  #       run: npm ci
-  #     - name: Create package
-  #       run: npm run build
-  #     - name: Release
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #       run: npx semantic-release
+     # Publish
+      - name: get version
+        id: version
+        run: echo "APP_VERSION=$(ant -q | grep -o 'echo.*' | cut -d ' ' -f 2 -s)" >> "$GITHUB_ENV"
+
+      - name: check version
+        run: echo $APP_VERSION
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/') && ${{ matrix.java-version == 8 }}
+        with:
+          files: build/grimm-data.xar
+          tag_name: ${{ env.APP_VERSION }}
+          token: ${{ secrets.GITHUB_TOKEN }}
     
