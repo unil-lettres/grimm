@@ -51,6 +51,7 @@ jobs:
           wget http://exist-db.org/exist/apps/public-repo/public/templating-1.1.0.xar -O 000.xar
           wget https://exist-db.org/exist/apps/public-repo/public/tei-publisher-lib-4.0.0.xar -O 001.xar
           wget https://github.com/eeditiones/roaster/releases/download/v1.8.2/roaster-1.8.2.xar -O 002.xar
+          wget https://github.com/unil-lettres/grimm-data/releases/latest/download/grimm-data.xar -O 003.xar
           
       
        # Install
@@ -77,7 +78,7 @@ jobs:
      # Publish
       - name: get version
         id: version
-        run: echo "APP_VERSION=$(ant -q | grep -o 'echo.*' | cut -d ' ' -f 2 -s)" >> "$GITHUB_ENV"
+        run: echo "APP_VERSION=$(ant -q | grep -o 'echo.* grimm' | cut -d ' ' -f 3 -s)" >> "$GITHUB_ENV"
 
       - name: check version
         run: echo $APP_VERSION

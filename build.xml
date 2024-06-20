@@ -7,6 +7,7 @@
     <property name="build.dir" value="build"/>
     <property name="scripts.dir" value="node_modules/@teipublisher/pb-components/dist"/>
     <property name="fore.dir" value="node_modules/@jinntec/fore/dist"/>
+    <echo>${package(abbrev)} version: ${package(version)}</echo>
     <target name="clean">
         <delete dir="${build}"/>
         <delete dir="resources/scripts" includes="*.js *.map" excludes="browse.js,edition.js"/>
@@ -44,7 +45,7 @@
     </target>
     <target name="xar" depends="clean,npm.install,prepare">
         <mkdir dir="${build.dir}"/>
-        <zip basedir="." destfile="${build.dir}/${project.app}-${project.version}.xar"
+        <zip basedir="." destfile="${build.dir}/${project.app}.xar"
             excludes="${build.dir}/* node_modules/** cypress/videos/** cypress/screenshots/**"/>
     </target>
     <target name="npm.install">
