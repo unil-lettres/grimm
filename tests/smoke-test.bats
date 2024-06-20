@@ -30,7 +30,6 @@
 }
 
 @test "logs are error free" {
-  skip "there are errors" # not a good reason to skip
   result=$(docker logs grimm | grep -ow -c 'ERROR' || true)
   [ "$result" -eq 0 ]
 }
