@@ -327,6 +327,34 @@
 				}
 			}
 		},
+		"/api/grimm-tale/{id}": {
+			"get": {
+				"summary": "Get formatted overview of versions",
+				"tags": ["collection"],
+				"operationId": "api:tale-selection",
+				"parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }],
+				"responses": {
+					"200": {
+						"description": "Returns HTML with the list of variants of a tale given an ID for one of the versions",
+						"content": {
+							"text/html": {
+								"schema": {
+									"type": "string"
+								}
+							}
+						}
+					}
+				}
+			}
+		},
 		"/api/metadata/{id}/{panel}": {
 			"get": {
 				"summary": "Get formatted overview of documents in the collection",
@@ -444,34 +472,7 @@
 					}
 				}
 			}
-		},
-        "/api/variants/{id}": {
-            "get": {
-                "operationId": "custom:variants",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "schema": {
-                            "type": "string"
-                        },
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "List of variants with checkboxes",
-                        "content": {
-                            "text/html": {
-                                "schema": {
-                                    "type": "string"
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+		}
     },
     "security": [
         {

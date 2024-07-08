@@ -384,7 +384,6 @@ pb-drawer {
 
 .facets {
     flex: 0;
-    min-width: 220px;
 }
 
 .facets h3 {

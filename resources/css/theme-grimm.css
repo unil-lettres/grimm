@@ -355,6 +355,15 @@ footer {
     display: block;
 }
 
+.drawer-content.tale-selection {
+    display: grid;
+    grid-template-columns: auto auto;
+    column-gap: 2rem;
+    font-family: var(--pb-base-font-family) !important;
+    overflow-y: auto;
+    overflow-x: clip;
+}
+
 .content-body {
     display: grid;
     grid-template-rows: auto 1fr;
