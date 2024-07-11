@@ -19,21 +19,7 @@ window.addEventListener("load", () => {
     buttonScroll.click();
     
     pbEvents.subscribe('pb-end-update', 'panels', () => {
-        const grid = document.querySelector('pb-grid');
-        document.querySelectorAll('#toc [name="panel"]')
-        .forEach((input) => {
-            const panel = parseInt(input.value);
-            if (grid.panels.indexOf(panel) !== -1) {
-                input.checked = true;
-            }
-            input.addEventListener('change', () => {
-                if (input.checked) {
-                    grid.addPanel(panel);
-                } else {
-                    grid.removePanel(panel);
-                }
-            });
-        });
+        changeSelection()
     });
 
     /* Adds the appropriate eventListener to spans and to disable button in added/changed panels */
@@ -42,9 +28,31 @@ window.addEventListener("load", () => {
         var mode = retrieveSyncMode();
         addEvents(mode);
         disablePanels();
+        changeSelection();
     });
 });
 
+
+/* Change selection */
+
+function changeSelection() {
+    const grid = document.querySelector('pb-grid');
+    document.querySelectorAll('#toc [name="panel"]')
+    .forEach((input) => {
+        const panel = parseInt(input.value);
+        if (grid.panels.indexOf(panel) !== -1) {
+            input.checked = true;
+        } else {
+            input.checked = false}
+        input.addEventListener('change', () => {
+            if (input.checked) {
+                grid.addPanel(panel);
+            } else {
+                grid.removePanel(panel);
+            }
+            });
+        });
+    };
 
 /* Desactivate click/scroll button when selecting the other option
 Buttons should probably be radio buttons to enable this behaviour automatically */
