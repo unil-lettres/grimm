@@ -19,7 +19,22 @@ window.addEventListener("load", () => {
     buttonScroll.click();
     
     pbEvents.subscribe('pb-end-update', 'panels', () => {
-        changeSelection()
+       const grid = document.querySelector('pb-grid');
+    document.querySelectorAll('#toc [name="panel"]')
+    .forEach((input) => {
+        const panel = parseInt(input.value);
+        if (grid.panels.indexOf(panel) !== -1) {
+            input.checked = true;
+        } else {
+            input.checked = false}
+        input.addEventListener('change', () => {
+            if (input.checked) {
+                grid.addPanel(panel);
+            } else {
+                grid.removePanel(panel);
+            }
+            });
+        });
     });
 
     /* Adds the appropriate eventListener to spans and to disable button in added/changed panels */
@@ -44,13 +59,6 @@ function changeSelection() {
             input.checked = true;
         } else {
             input.checked = false}
-        input.addEventListener('change', () => {
-            if (input.checked) {
-                grid.addPanel(panel);
-            } else {
-                grid.removePanel(panel);
-            }
-            });
         });
     };
 
