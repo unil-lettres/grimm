@@ -17,22 +17,19 @@ window.addEventListener("load", () => {
     
     // Click scroll button as default
     buttonScroll.click();
-    
+
+    // Update checkboxes based on the grid state
     pbEvents.subscribe('pb-end-update', 'panels', () => {
-       const grid = document.querySelector('pb-grid');
-    document.querySelectorAll('#toc [name="panel"]')
-    .forEach((input) => {
-        const panel = parseInt(input.value);
-        if (grid.panels.indexOf(panel) !== -1) {
-            input.checked = true;
-        } else {
-            input.checked = false}
-        input.addEventListener('change', () => {
-            if (input.checked) {
-                grid.addPanel(panel);
-            } else {
-                grid.removePanel(panel);
-            }
+        const grid = document.querySelector('pb-grid');
+        document.querySelectorAll('#toc [name="panel"]').forEach((input) => {
+            const panel = parseInt(input.value);
+            input.checked = grid.panels.includes(panel);
+            input.addEventListener('change', () => {
+                if (input.checked) {
+                    grid.addPanel(panel);
+                } else {
+                    grid.removePanel(panel);
+                }
             });
         });
     });
@@ -47,20 +44,15 @@ window.addEventListener("load", () => {
     });
 });
 
-
 /* Change selection */
 
 function changeSelection() {
     const grid = document.querySelector('pb-grid');
-    document.querySelectorAll('#toc [name="panel"]')
-    .forEach((input) => {
-        const panel = parseInt(input.value);
-        if (grid.panels.indexOf(panel) !== -1) {
-            input.checked = true;
-        } else {
-            input.checked = false}
-        });
-    };
+    document.querySelectorAll('#toc [name="panel"]').forEach((input) => {
+        const panel = parseInt(input.value, 10);
+        input.checked = grid.panels.includes(panel);
+    });
+}
 
 /* Desactivate click/scroll button when selecting the other option
 Buttons should probably be radio buttons to enable this behaviour automatically */
