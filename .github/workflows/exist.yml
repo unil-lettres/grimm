@@ -1,0 +1,103 @@
+# This workflow builds a xar archive, deploys it into exist and execute its test suites.
+# It also includes code for using semantic-release to upload packages as part of GitHub releases
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: exist-db CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      APP_VERSION: ''
+    strategy:
+       fail-fast: false
+       matrix:
+         exist-version: [release]
+         java-version: [8]
+    #  add latest exist-version and java-version 17 for fowardlooking matrix
+        
+
+    steps:
+      # Checkout code
+      - uses: actions/checkout@v4
+      - name: Install Test Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libxml2-utils bats
+
+      - name: Ensure all XML files are well-formed
+        run: |
+          find . -type f -name '*.xml' -print0 | xargs -0 xmllint -noout
+      
+      # Build Expath Package 
+      - name: Build Expath Package
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: ${{ matrix.java-version }}
+      - run: ant
+
+      - name: Add public repo dependencies
+        working-directory: build
+        run: |
+          wget http://exist-db.org/exist/apps/public-repo/public/templating-1.1.0.xar -O 000.xar
+          wget https://exist-db.org/exist/apps/public-repo/public/tei-publisher-lib-4.0.0.xar -O 001.xar
+
+      - name: Add roaster
+        working-directory: build
+        run: |
+          gh release download v1.8.2 -p 'roaster*.xar' -O '002.xar'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: eeditiones/roaster 
+
+      # Requires modification of org permissions
+      # see #3
+      # - name: Add private data xar
+      #   working-directory: build
+      #   run: |
+      #     gh release list
+      #     gh release download -p '*.xar' -O '003.xar'
+      #   env:
+      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     GH_REPO: unil-lettres/grimm-data
+      
+       # Install
+      - name: Start exist-ci containers
+        run: |
+          docker run -dit -p 8080:8080 -v ${{ github.workspace }}/build:/exist/autodeploy \
+          --name grimm --rm --health-interval=2s --health-start-period=4s \
+          duncdrum/existdb:${{ matrix.exist-version }}
+
+      - name: wait for install to finish
+        timeout-minutes: 10
+        run: |
+          while ! docker logs grimm | grep -q "Server has started"; \
+          do sleep 2s; \
+          done
+
+      # Testing 
+      - name: Run smoke test
+        run: bats --tap tests/*.bats
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v6
+
+     # Publish
+      - name: get version
+        id: version
+        run: echo "APP_VERSION=$(ant -q | grep -o 'echo.* grimm' | cut -d ' ' -f 3 -s)" >> "$GITHUB_ENV"
+
+      - name: check version
+        run: echo $APP_VERSION
+
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: build/grimm.xar
+          tag_name: ${{ env.APP_VERSION }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+    
