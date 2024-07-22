@@ -8,13 +8,15 @@ describe('index page', () => {
       .contains('Grimm')
   })
 
-  it('should show at least two stories', () => {
+  // requires data see #3
+  it.skip('should show at least two stories', () => {
     cy.get('#document-list')
       .find('.tale')
       .should('have.length.gt', 2)
   })
 
-  it('should contain four search facets', () => {
+  // requires data see #3
+  it.skip('should contain four search facets', () => {
     cy.get('.facet-dimension')
       .should('have.length', 4)
   })
@@ -30,7 +32,7 @@ describe('index page', () => {
   })
 
   describe('search facettes', () => {
-
+    // see #15 #16
     it.skip('should have working title search', () => {
       cy.get('.tp-title > pb-i18n')
         .contains('Grimm')
