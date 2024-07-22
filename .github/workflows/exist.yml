@@ -59,13 +59,14 @@ jobs:
 
       # Requires modification of org permissions
       # see #3
-      - name: Add private data xar
-        working-directory: build
-        run: |
-          gh release download -p '*.xar' -O '003.xar'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_REPO: unil-lettres/grimm-data
+      # - name: Add private data xar
+      #   working-directory: build
+      #   run: |
+      #     gh release list
+      #     gh release download -p '*.xar' -O '003.xar'
+      #   env:
+      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     GH_REPO: unil-lettres/grimm-data
       
        # Install
       - name: Start exist-ci containers
