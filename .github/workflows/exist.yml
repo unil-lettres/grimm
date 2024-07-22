@@ -43,15 +43,29 @@ jobs:
           java-version: ${{ matrix.java-version }}
       - run: ant
 
-      # see #3 needs access to private repo so it can:
-      # wget https://github.com/unil-lettres/grimm-data/releases/latest/download/grimm-data.xar -O 003.xar
-      - name: Add expath dependencies
+      - name: Add public repo dependencies
         working-directory: build
         run: |
           wget http://exist-db.org/exist/apps/public-repo/public/templating-1.1.0.xar -O 000.xar
           wget https://exist-db.org/exist/apps/public-repo/public/tei-publisher-lib-4.0.0.xar -O 001.xar
-          wget https://github.com/eeditiones/roaster/releases/download/v1.8.2/roaster-1.8.2.xar -O 002.xar
-          
+
+      - name: Add roaster
+        working-directory: build
+        run: |
+          gh release download v1.8.2 -p 'roaster*.xar' -O '002.xar'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: eeditiones/roaster 
+
+      # Requires modification of org permissions
+      # see #3
+      - name: Add private data xar
+        working-directory: build
+        run: |
+          gh release download -p '*.xar' -O '003.xar'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: unil-lettres/grimm-data
       
        # Install
       - name: Start exist-ci containers
@@ -86,7 +100,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/') && ${{ matrix.java-version == 8 }}
         with:
-          files: build/grimm-data.xar
+          files: build/grimm.xar
           tag_name: ${{ env.APP_VERSION }}
           token: ${{ secrets.GITHUB_TOKEN }}
     
