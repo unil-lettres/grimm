@@ -3,7 +3,7 @@
   "version" : "1.0.0",
   "description" : "Grimm’s Fairy Tales",
   "dependencies" : {
-    "@teipublisher/pb-components" : "2.24.1",
+    "@teipublisher/pb-components" : "2.24.2",
     "@jinntec/fore" : "1.9.0"
   },
   "devDependencies": {
