@@ -23,6 +23,15 @@ cd grimm-data
 ant
 ```
 
+## Release
+
+Release can be triggered via git tags. A `.xar` package will be attached as release asset automatically. The version number in `expath-pkg.xml` needs to be set manually before release: 
+
+1. Increase version number in `expath-pkg.xml`
+2. commit and push as usual
+3. add tag `v1.0.0` of new version e.g. `git tag -a v1.0.0`
+4. push tag `git push origin v1.0.0` 
+
 ## Customization of the app
 
 For adding new stories and static pages, see README file in the data package repo.
