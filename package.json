@@ -7,6 +7,6 @@
     "@jinntec/fore" : "2.2.0"
   },
   "devDependencies": {
-    "cypress": "^13.13.3"
+    "cypress": "^13.14.2"
 }
 }
