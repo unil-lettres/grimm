@@ -618,7 +618,7 @@ declare %templates:wrap function config:app-title($node as node(), $model as map
 (:~
  : Returns the expath-pkg.xml descriptor for the data application.
  :)
-declare function config:data-expath-descriptor() as element(expath:package) {
+declare function config:data-expath-descriptor() as element(expath:package)? {
     $config:data-expath-descriptor
 };
 
@@ -628,7 +628,10 @@ declare function config:data-expath-descriptor() as element(expath:package) {
 declare 
     %templates:wrap
 function config:data-version($node as node(), $model as map(*)) {
-    config:data-expath-descriptor()/@version/string()
+    if (exists(config:data-expath-descriptor())) then
+        config:data-expath-descriptor()/@version/string()
+    else
+        "-"
 };
 
 declare function config:app-meta($node as node(), $model as map(*)) as element()* {
