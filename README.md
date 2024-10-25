@@ -1,40 +1,29 @@
 # grimm
 
+Grimm is an eXist-db application used to compare multiple versions of tales
+present in the [data](https://github.com/unil-lettres/grimm-data) package.
+
+This application is easily deployed with [this pre-configured Docker](https://github.com/unil-lettres/tei-publisher).
+
 ## Requirements
 
-*   [exist-db](http://exist-db.org/exist/apps/homepage/index.html) version: `6.2.0` or greater
-
-*   [ant](http://ant.apache.org) version: `1.10.14` \(for building from source\)
-
-*   [node](http://nodejs.org) version: `20.x` \(for building from source\)
-
-### Building from source
-
-1. Download, fork or clone this GitHub repository
-2. Call `ant`
-```bash
-cd grimm
-ant
-```
-3. Download, fork or clone the GitHub repository with the data package: https://github.com/unil-lettres/grimm-data
-4. Call `ant` to build the package
-```bash
-cd grimm-data
-ant
-```
+- [exist-db](http://exist-db.org/exist/apps/homepage/index.html) version: `6.2.0` or greater
+- [ant](http://ant.apache.org) version: `1.10.14` \(for building from source\)
+- [node](http://nodejs.org) version: `20.x` \(for building from source\)
 
 ## Release
 
-Release can be triggered via git tags. A `.xar` package will be attached as release asset automatically. The version number in `expath-pkg.xml` needs to be set manually before release: 
+Releases is triggered by git tags. The `.xar` package will available as a release asset. The version number in `expath-pkg.xml` needs to be set manually before release: 
 
 1. Increase version number in `expath-pkg.xml`
-2. commit and push as usual
-3. add tag `v1.0.0` of new version e.g. `git tag -a v1.0.0`
-4. push tag `git push origin v1.0.0` 
+1. commit and push as usual
+1. add tag `v1.0.0` of new version e.g. `git tag -a v1.0.0`
+1. push tag `git push origin v1.0.0` 
 
 ## Customization of the app
 
-For adding new stories and static pages, see README file in the data package repo.
+### New tales or static pages
+For adding new tales or static pages, see the corresponding [data](https://github.com/unil-lettres/grimm-data) repository.
 
 ### ODD-generated content
 
@@ -51,7 +40,7 @@ HTML files are in the folder [templates](https://github.com/unil-lettres/grimm/t
 
 - [index.html](https://github.com/unil-lettres/grimm/blob/development/templates/index.html): landing page
 - [menu.html](https://github.com/unil-lettres/grimm/blob/development/templates/menu.html): menu
-- [grimm.html](https://github.com/unil-lettres/grimm/blob/development/templates/pages/grimm.html): template use for rendering the stories
+- [grimm.html](https://github.com/unil-lettres/grimm/blob/development/templates/pages/grimm.html): template use for rendering the tales
 - [view.html](https://github.com/unil-lettres/grimm/blob/development/templates/pages/view.html): template used for rendering the static pages
 
 ### Styling
@@ -61,17 +50,17 @@ HTML files are in the folder [templates](https://github.com/unil-lettres/grimm/t
      - [theme-grimm.css](https://github.com/unil-lettres/grimm/blob/development/resources/css/theme-grimm.css), which contains additional rules, specific to the Grimm project.
 
 - Definition of important variables for colors:
-     - `--pb-highlight-color` (https://github.com/unil-lettres/grimm/blob/development/resources/css/theme.css#L73C5-L73C25): for the alignment highlight
-     - `--highlight-closest-color` (https://github.com/unil-lettres/grimm/blob/development/resources/css/theme.css#L75): for the square brackets when there is no match.
+     - [`--pb-highlight-color`](https://github.com/unil-lettres/grimm/blob/development/resources/css/theme.css#L73C5-L73C25): for the alignment highlight.
+     - [`--highlight-closest-color`](https://github.com/unil-lettres/grimm/blob/development/resources/css/theme.css#L75): for the square brackets when there is no match.
 
 ### Images
 
-- Images are stored in the [`images` folder](https://github.com/unil-lettres/grimm/tree/development/resources/images)
+- Images are stored in the [images](https://github.com/unil-lettres/grimm/tree/development/resources/images) folder.
 
-- For the images of the landing page, see the subfolder `stories`. To automatically associate a image to its story, the name of the image file is crucial and it must match the number of the story with the 'KHM' prefix, and the `.png` extension e.g. `KHM14.png`. If this convention wants to be changed in the future, the function that adds the images is `pmf:get-thumbnail($tale as xs:string)` defined in [ext-html.xql](https://github.com/unil-lettres/grimm/blob/development/modules/ext-html.xql).
+- For the images of the landing page, see the subfolder [stories](https://github.com/unil-lettres/grimm/tree/development/resources/images/stories). To automatically associate a image to its tale, the name of the image file is crucial and it must match the number of the tale with the 'KHM' prefix, and the `.png` extension e.g. `KHM14.png`. This convention is defined by the function `pmf:get-thumbnail($tale as xs:string)` that adds the images defined in [ext-html.xql](https://github.com/unil-lettres/grimm/blob/development/modules/ext-html.xql).
 
 ### Internationalization
 
 - The app is functional in English and French (with English as a default language). To add the translations of other languages go to `resources/i18n/app` and create a json file for each language. Use the existing ones for English and French as a model.
 
-- For the static pages, use a `@xml:lang` attribute as explained in the documentation of the data package.
+- For the static pages, use a `@xml:lang` attribute as explained in the documentation of the [data](https://github.com/unil-lettres/grimm-data) package.
