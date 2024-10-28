@@ -3,11 +3,11 @@
 /* Due to a safari issue, relative paths to background images won't work as variables, so we list them here */
 
 .logo {
-    background-image: url("../images/tei-publisher-logo-contrast-color.svg");
+    background-image: url("../images/GrimmTradalign_alpha.png");
 }
 
 .splash {
-    background-image: url("../images/tei-publisher-logo-color.svg");
+    background-image: url("../images/GrimmTradalign.png");
 }
 
 .menubar {
@@ -243,7 +243,7 @@ app-drawer-layout:not([narrow]) [drawer-toggle] {
 
 .logo {
     background-repeat: no-repeat;
-    background-size: auto auto;
+    background-size: contain;
     background-position: left center;
     width: var(--pb-logo-image-width);
     height: var(--pb-logo-image-height);

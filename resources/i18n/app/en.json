@@ -1,9 +1,9 @@
 {	"title": "Grimms’ Fairy Tales",
 
 "app": {
-	"pis": "Principal investigators",
+	"pis": "Team",
 	"cite-head": "How to cite",
-	"cite-content": "Placeholder for citation in English",
+	"cite-content": "Rimasson-Fertin, N., François, C., Kraif, O., Roux, P., Jalilian E. (2024). Grimm Tradalign: plateforme de comparaison de traductions de contes des frères Grimm. UGA-UNIL.",
 	"about-head": "About this app",
 	"app": "app version: ",
 	"data": "data version: ",
@@ -40,7 +40,7 @@
    },
    "search": {
    	"placeholder": "Search complete corpus",
-   	"text": "Search within the tale"
+   	"text": "Search within the story"
    }
 	
 }
