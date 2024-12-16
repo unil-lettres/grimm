@@ -4,7 +4,7 @@
   "description" : "Grimm’s Fairy Tales",
   "dependencies" : {
     "@teipublisher/pb-components" : "2.24.6",
-    "@jinntec/fore" : "2.4.2"
+    "@jinntec/fore" : "2.5.0"
   },
   "devDependencies": {
     "cypress": "^13.16.1"
