@@ -1,4 +1,4 @@
-{	"title": "Grimms’ Fairy Tales",
+{	"title": "Multilingual comparison of tales by the Brothers Grimm in translation",
 
 "app": {
 	"pis": "Team",
@@ -16,8 +16,10 @@
 },
 
 	"menu": {
-		"start": "Start",
-		"about": "About"
+		"start": "Home",
+		"about": "About",
+		"select": "Select a text"
+		
 },
     "facets": {
     	"translator": "Translator",

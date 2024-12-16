@@ -15,8 +15,9 @@
 	
 },
     "menu": {
-        "start": "Start",
-        "about": "À propos"
+        "start": "Accueil",
+        "about": "À propos",
+        "select": "Choisir un texte"
     },
     "facets": {
         "translator": "Traducteur·rice",

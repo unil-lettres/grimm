@@ -3,7 +3,7 @@
     <teiHeader>
         <fileDesc>
             <titleStmt>
-                <title>Grimm’s Fairy Tales</title>
+                <title>Grimm Tradalign</title>
             </titleStmt>
             <publicationStmt>
                 <publisher>eXistSolutions GmbH</publisher>
@@ -215,7 +215,7 @@ overflow-y: auto;
                 <elementSpec ident="teiHeader" mode="change">
                     <modelSequence predicate="$parameters?header='metadata'">
             <model behaviour="heading">
-                <param name="content" value="let $titleStmt := descendant::titleStmt return   (&lt;em&gt;{$titleStmt/title/string()}&lt;/em&gt;, ' by ', $titleStmt/author/string())"/>
+                <param name="content" value="let $titleStmt := descendant::titleStmt return   (&lt;em&gt;{$titleStmt/title/string()}&lt;/em&gt;)"/>
                 <param name="level" value="3"/>
             </model>
             <model behaviour="pass-through">
