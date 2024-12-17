@@ -1,6 +1,14 @@
 <app-toolbar class="toolbar" sticky="sticky">
     <div id="toolbar-before" style="display: none"/>
-    <paper-icon-button id="tocToggle" class="toc-toggle" icon="icons:view-carousel" title="Select a text"/>
+    <paper-button id="tocToggle" class="toc-toggle" title="Select a text">
+         <iron-icon icon="icons:view-carousel"/>
+         <span style="margin-left: 0.5rem; text-transform: initial;"><pb-i18n key="menu.select">Select</pb-i18n></span>
+    </paper-button>
+     <p>
+        <a href="about#help">
+            <img src="resources/images/help.png" alt="help"/>
+        </a>
+    </p>
     <pb-search action="${app}/search" data-template="pages:parse-params" value="${query}" redirect="redirect" place-holder="search.text">
         <pb-custom-form emit="search" style="display:none">
             <input name="facet-tale" value="${tale}"/>
