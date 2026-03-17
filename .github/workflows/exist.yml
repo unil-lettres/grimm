@@ -16,8 +16,6 @@ jobs:
        matrix:
          exist-version: [6.2.0-debug-j8]
          java-version: [8]
-    #  add latest exist-version and java-version 17 for fowardlooking matrix
-        
 
     steps:
       # Checkout code
@@ -56,17 +54,6 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_REPO: eeditiones/roaster 
-
-      # Requires modification of org permissions
-      # see #3
-      # - name: Add private data xar
-      #   working-directory: build
-      #   run: |
-      #     gh release list
-      #     gh release download -p '*.xar' -O '003.xar'
-      #   env:
-      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #     GH_REPO: unil-lettres/grimm-data
       
        # Install
       - name: Start exist-ci containers
