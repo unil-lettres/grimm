@@ -14,7 +14,7 @@ jobs:
     strategy:
        fail-fast: false
        matrix:
-         exist-version: [release]
+         exist-version: [6.2.0-debug-j8]
          java-version: [8]
     #  add latest exist-version and java-version 17 for fowardlooking matrix
         
