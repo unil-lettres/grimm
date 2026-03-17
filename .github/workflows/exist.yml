@@ -38,6 +38,10 @@ jobs:
           distribution: 'temurin'
           java-version: ${{ matrix.java-version }}
       - run: ant
+      
+      - name: Rename xar for last deployment
+        working-directory: build
+        run: mv grimm.xar 999-grimm.xar
 
       - name: Add public repo dependencies
         working-directory: build
@@ -97,7 +101,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          files: build/grimm.xar
+          files: build/999-grimm.xar
           tag_name: ${{ env.APP_VERSION }}
           token: ${{ secrets.GITHUB_TOKEN }}
     
