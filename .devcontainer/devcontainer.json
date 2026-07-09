@@ -1,24 +1,36 @@
 {
-    "name": "Grimm’s Fairy Tales Development Container",
-    "build": {
-        "dockerfile": "Dockerfile.dev",
-        "args": {
-            "HTTP_PORT": "8080",
-            "HTTPS_PORT": "8443"
-        }
-    },
-    "runArgs": ["--name=grimm"],
-    "forwardPorts": [ 8080, 8001 ],
-    "customizations": {
-        "vscode": {
-            "extensions": [ "exist-db.existdb-vscode", "42crunch.vscode-openapi", "redhat.vscode-xml" ]
-        }
-    },
-    "overrideCommand": false,
-    "postStartCommand": "${containerWorkspaceFolder}/.devcontainer/init.sh",
-    "features": {
-        "ghcr.io/devcontainers/features/node:1": {
-            "version": "latest"
-        }
+  "name": "Grimm’s Fairy Tales Development Container",
+
+  "build": {
+    "dockerfile": "Dockerfile.dev",
+    "args": {
+      "HTTP_PORT": "8080",
+      "HTTPS_PORT": "8443"
     }
+  },
+
+  "forwardPorts": [8080, 8001],
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "exist-db.existdb-vscode",
+        "42crunch.vscode-openapi",
+        "redhat.vscode-xml"
+      ]
+    }
+  },
+
+  "remoteUser": "vscode",
+  "overrideCommand": false,
+
+  "postStartCommand": "${containerWorkspaceFolder}/.devcontainer/init.sh",
+
+  "mountWorkspaceGitRoot": true,
+
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "latest"
+    }
+  }
 }
