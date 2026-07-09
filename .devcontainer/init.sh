@@ -17,13 +17,8 @@ echo "[init] eXist-db is up."
 
 cd "$PROJECT_ROOT"
 
-# Build XARs only if they don't already exist
-if ls build/*.xar >/dev/null 2>&1; then
-    echo "[init] Existing XARs found, skipping Ant build."
-else
-    echo "[init] No XARs found, running Ant build…"
-    ant
-fi
+echo "[init] Building XARs…"
+ant
 
 # Install XARs
 for XAR in build/*.xar; do
